@@ -1,7 +1,6 @@
-package com.example;
+package com.example.fragments;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.icu.text.SimpleDateFormat;
@@ -26,6 +25,8 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.R;
 
 import java.text.ParseException;
 import java.util.Date;

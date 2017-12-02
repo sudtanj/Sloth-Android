@@ -1,4 +1,4 @@
-package com.example;
+package com.example.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,7 +10,11 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.TextView;
+
+import com.example.fragments.ActiveTimers;
+import com.example.fragments.AllTimers;
+import com.example.R;
+import com.example.fragments.Settings;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener{
 
@@ -19,7 +23,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     private AllTimers allTimers;
     private ActiveTimers activeTimers;
     private Settings settings;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,14 +52,13 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     // handle button activities
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
         switch (item.getItemId()) {
-            case 0:
-                Intent intent = new Intent(this, AddTimer.class);
+            case R.id.add_timer:
+                Intent intent = new Intent(MainActivity.this, TimerTypes.class);
                 startActivity(intent);
                 return true;
         }
-        return super.onOptionsItemSelected(item);
+        return false;
     }
 
     private void initializeViews(){
@@ -65,7 +67,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     }
 
     private void setupActionBar(){
-        setTitle(getString(R.string.title_all_timers));
+
     }
 
     @Override
@@ -81,10 +83,11 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 ft.replace(R.id.frameContainer,activeTimers).commit();
                 return true;
             case R.id.navigation_settings:
-                setTitle(getString(R.string.title_settings));
+                setTitle(getString(R.string.title_activity_select_theme));
                 ft.replace(R.id.frameContainer,settings).commit();
                 return true;
         }
         return false;
     }
+
 }
