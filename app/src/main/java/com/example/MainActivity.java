@@ -1,16 +1,15 @@
 package com.example;
 
-import android.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener{
 
     //private TextView mTextMessage;
     //Fragments
@@ -18,53 +17,42 @@ public class MainActivity extends AppCompatActivity {
     private ActiveTimers activeTimers;
     private Settings settings;
 
-    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
-            = new BottomNavigationView.OnNavigationItemSelectedListener() {
-
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            switch (item.getItemId()) {
-                case R.id.navigation_all_timers:
-                    if(allTimers==null){
-                        allTimers = new AllTimers();
-                    }
-                    getSupportFragmentManager().beginTransaction().replace(R.id.frameContainer,allTimers).commit();
-                    return true;
-                case R.id.navigation_active_timers:
-                    if(activeTimers==null){
-                        activeTimers = new ActiveTimers();
-                    }
-                    getSupportFragmentManager().beginTransaction().replace(R.id.frameContainer,activeTimers).commit();
-                    return true;
-                case R.id.navigation_settings:
-                    if(settings==null){
-                        settings = new Settings();
-                    }
-                    getSupportFragmentManager().beginTransaction().replace(R.id.frameContainer,settings).commit();
-                    return true;
-            }
-            return false;
-        }
-    };
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        initializeViews();
+        Log.d("tes","msuk");
         if (savedInstanceState == null) {
             if(allTimers==null){
                 allTimers = new AllTimers();
+                activeTimers = new ActiveTimers();
+                settings = new Settings();
             }
-            getSupportFragmentManager().beginTransaction().add(R.id.container,allTimers).commit();
+            ft.replace(R.id.frameContainer,allTimers).commit();
         }
-
-
     }
 
     private void initializeViews(){
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
-        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        navigation.setOnNavigationItemSelectedListener(this);
     }
 
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        switch (item.getItemId()) {
+            case R.id.navigation_all_timers:
+                ft.replace(R.id.frameContainer,allTimers).commit();
+                return true;
+            case R.id.navigation_active_timers:
+                ft.replace(R.id.frameContainer,activeTimers).commit();
+                return true;
+            case R.id.navigation_settings:
+                ft.replace(R.id.frameContainer,settings).commit();
+                return true;
+        }
+        return false;
+    }
 }

@@ -8,15 +8,6 @@
     android:orientation="vertical"
     tools:context="com.example.MainActivity">
 
-    <FrameLayout
-        android:id="@+id/frameContainer"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@id/navigation">
-
-    </FrameLayout>
-
-
 
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/navigation"
@@ -27,5 +18,14 @@
         android:background="?android:attr/windowBackground"
         android:layout_alignParentBottom="true"
         app:menu="@menu/navigation" />
+
+    <FrameLayout
+        android:id="@+id/frameContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/navigation">
+
+    </FrameLayout>
+
 
 </RelativeLayout>
