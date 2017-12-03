@@ -55,6 +55,7 @@ public class TimerTypesDAO extends DAO
 			QueryBuilder<TimerTypesModel, Long> queryBuilder = dao.queryBuilder();
 			queryBuilder.orderBy(TimerTypesModel.COLUMN_ID, true);
 			queryBuilder.offset(skip).limit(take);
+			System.out.println(queryBuilder.prepare());
 			list = dao.query(queryBuilder.prepare());
 		}
 		return list;

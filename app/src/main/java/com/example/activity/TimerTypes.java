@@ -12,6 +12,7 @@ import android.widget.ListView;
 import com.example.R;
 import com.example.database.dao.TimerTypesDAO;
 import com.example.database.model.TimerTypesModel;
+import com.j256.ormlite.table.DatabaseTable;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -56,7 +57,15 @@ public class TimerTypes extends AppCompatActivity{
     }
 
     private void setupPrebuiltTimers(){
-        loadTimerTypesList();
+        try
+        {
+            timerTypesList = TimerTypesDAO.readAll(-11, -11);
+        }
+        catch(SQLException e)
+        {
+            e.printStackTrace();
+            System.out.println(e.getErrorCode());
+        }
         String timerTypeName[] = new String[timerTypesList.size()];
         for(int i=0;i<timerTypesList.size();++i){
             timerTypeName[i]=timerTypesList.get(i).getName();

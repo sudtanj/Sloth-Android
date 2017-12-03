@@ -16,11 +16,11 @@ public class TimerTypesModel
 	public static final String COLUMN_NAME = "name";
 	//public static final String COLUMN_IMAGE = "image";
 
-	@DatabaseField(columnName=COLUMN_ID, generatedId=true) private long id;
+	@DatabaseField(columnName=COLUMN_ID,generatedId=true) private int id;
 	@DatabaseField(columnName=COLUMN_NAME) private String name;
 	//@DatabaseField(columnName=COLUMN_IMAGE) private String image;
 	@ForeignCollectionField
-    private ForeignCollection<TimerModel> timers; // one to many
+    private ForeignCollection<TimerModel> timers1; // one to many
 
 
 	// empty constructor
@@ -35,7 +35,7 @@ public class TimerTypesModel
 	}
 
 
-	public void setId(long id)
+	public void setId(int id)
 	{
 		this.id = id;
 	}
@@ -68,7 +68,7 @@ public class TimerTypesModel
 	public List<TimerModel> getTimers()
 	{
 		List<TimerModel> list = new ArrayList<>();
-		for(TimerModel m : timers)
+		for(TimerModel m : timers1)
 		{
 			list.add(m);
 		}
@@ -76,8 +76,8 @@ public class TimerTypesModel
 	}
 
 
-	public void setTimers(ForeignCollection<TimerModel> timers)
+	public void setTimers(ForeignCollection<TimerModel> timers1)
 	{
-		this.timers = timers;
+		this.timers1 = timers1;
 	}
 }
