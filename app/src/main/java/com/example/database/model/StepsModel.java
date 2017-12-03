@@ -1,11 +1,13 @@
 package com.example.database.model;
 
 import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
 
 /**
  * Created by izzyengelbert on 12/3/2017.
  */
 
+@DatabaseTable(tableName="steps")
 public class StepsModel {
 
     public static final String COLUMN_ID = "id";

@@ -17,7 +17,7 @@ import java.util.List;
 public class TimerModel {
 
     public static final String COLUMN_ID = "id";
-    public static final String COLUMN_TIMER_TYPE_ID = "timer_type_id";
+    public static final String COLUMN_TIMER_TYPE_ID = "timer_types_id";
     public static final String COLUMN_NAME = "name";
     public static final String COLUMN_INFORMATION = "information";
     //public static final String COLUMN_IMAGE = "image";
