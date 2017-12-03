@@ -16,7 +16,7 @@ public class StepsModel {
     public static final String COLUMN_TIME = "time";
 
     @DatabaseField(columnName=COLUMN_ID, generatedId=true) private long id;
-    @DatabaseField(foreign=true, index=true) private TimerModel timer;
+    @DatabaseField(columnName = COLUMN_TIMER_ID) private long timerId;
     @DatabaseField(columnName=COLUMN_NAME) private String name;
     @DatabaseField(columnName=COLUMN_TIME) private int time;
 
@@ -39,15 +39,15 @@ public class StepsModel {
     }
 
 
-    public TimerModel getRecipe()
+    public long getTimerId()
     {
-        return timer;
+        return timerId;
     }
 
 
-    public void setRecipe(TimerModel recipe)
+    public void setTimerId(long recipe)
     {
-        this.timer = timer;
+        this.timerId = timerId;
     }
 
 

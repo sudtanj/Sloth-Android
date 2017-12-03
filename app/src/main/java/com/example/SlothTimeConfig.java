@@ -11,4 +11,6 @@ public class SlothTimeConfig {
 
     // database version, should be incremented if database has been changed
     public static final int DATABASE_VERSION = 1;
+
+    public static final boolean ANALYTICS = true;
 }

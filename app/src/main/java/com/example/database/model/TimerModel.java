@@ -23,7 +23,7 @@ public class TimerModel {
     //public static final String COLUMN_IMAGE = "image";
 
     @DatabaseField(columnName=COLUMN_ID, generatedId=true) private long id;
-    @DatabaseField(foreign=true, index=true) private TimerTypesModel timerType;
+    @DatabaseField(columnName = COLUMN_TIMER_TYPE_ID) private long timerTypeId;
     @DatabaseField(columnName=COLUMN_NAME) private String name;
     @DatabaseField(columnName=COLUMN_INFORMATION) private String information;
     //@DatabaseField(columnName=COLUMN_IMAGE) private String image;
@@ -36,12 +36,12 @@ public class TimerModel {
     {
     }
 
-    public TimerTypesModel getTimerType() {
-        return timerType;
+    public long getTimerTypeId() {
+        return timerTypeId;
     }
 
-    public void setTimerTypeId(TimerTypesModel timerType) {
-        this.timerType = timerType;
+    public void setTimerTypeId(long timerTypeId) {
+        this.timerTypeId = timerTypeId;
     }
 
     public String getInformation() {
@@ -88,7 +88,7 @@ public class TimerModel {
 	}*/
 
 
-    public List<StepsModel> getRecipes()
+    public List<StepsModel> getSteps()
     {
         List<StepsModel> list = new ArrayList<>();
         for(StepsModel m : steps)
@@ -99,7 +99,7 @@ public class TimerModel {
     }
 
 
-    public void setRecipes(ForeignCollection<StepsModel> steps)
+    public void setSteps(ForeignCollection<StepsModel> steps)
     {
         this.steps = steps;
     }

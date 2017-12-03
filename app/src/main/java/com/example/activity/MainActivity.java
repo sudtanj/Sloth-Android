@@ -1,42 +1,21 @@
 package com.example.activity;
 
 import android.content.Intent;
-import android.content.res.ColorStateList;
-import android.graphics.Color;
-import android.icu.text.SimpleDateFormat;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.CountDownTimer;
-import android.speech.tts.TextToSpeech;
 import android.support.annotation.NonNull;
-import android.support.annotation.RequiresApi;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.text.Editable;
-import android.text.InputFilter;
-import android.text.TextWatcher;
-import android.text.method.DigitsKeyListener;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ProgressBar;
-import android.widget.TextView;
-import android.widget.Toast;
 
+import com.example.SlothTimeApplication;
 import com.example.fragments.ActiveTimers;
 import com.example.fragments.AllTimers;
 import com.example.R;
 import com.example.fragments.Settings;
-
-import java.text.ParseException;
-import java.util.Date;
-import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener{
 
@@ -62,7 +41,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             }
             ft.replace(R.id.frameContainer,allTimers).commit();
         }
-
+        ((SlothTimeApplication) getApplication()).getTracker();
     }
 
     // create an action bar button

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -10,11 +10,9 @@
     <ListView
         android:id="@+id/manualTimerList"
         android:layout_width="match_parent"
-        android:layout_height="140dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"/>
 
     <TextView
         android:id="@+id/timerTypesTips"
@@ -23,16 +21,14 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="80dp"
         android:text="@string/timer_types_tips"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/manualTimerList" />
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/manualTimerList"/>
 
     <ListView
         android:id="@+id/prebuiltTimerTypesList"
         android:layout_width="match_parent"
-        android:layout_height="250dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/timerTypesTips" />
-</android.support.constraint.ConstraintLayout>
+        android:layout_below="@id/timerTypesTips"
+        android:layout_centerHorizontal="true"/>
+</RelativeLayout>
