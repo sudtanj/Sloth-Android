@@ -270,7 +270,7 @@ public class ActiveTimers extends Fragment {
                 Log.d("TimeValue :",String.valueOf(timerSteps.get(index).getTime()));
                 temp = output.parse(text.getText().toString());
                 timeInput.setTime(timerSteps.get(index).getTime()*1000);
-                text.setText(output.format(temp));
+                text.setText(output.format(timeInput));
             } catch (ParseException e) {
                 e.printStackTrace();
             }
