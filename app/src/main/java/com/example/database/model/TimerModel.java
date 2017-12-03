@@ -1,6 +1,7 @@
 package com.example.database.model;
 
 
+import com.example.activity.TimerTypes;
 import com.j256.ormlite.dao.ForeignCollection;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.field.ForeignCollectionField;
@@ -23,7 +24,7 @@ public class TimerModel {
     //public static final String COLUMN_IMAGE = "image";
 
     @DatabaseField(columnName=COLUMN_ID, generatedId=true) private long id;
-    @DatabaseField(columnName = COLUMN_TIMER_TYPE_ID) private long timerTypeId;
+    @DatabaseField(foreign=true, index=true) private TimerTypes timerType;
     @DatabaseField(columnName=COLUMN_NAME) private String name;
     @DatabaseField(columnName=COLUMN_INFORMATION) private String information;
     //@DatabaseField(columnName=COLUMN_IMAGE) private String image;
@@ -36,12 +37,12 @@ public class TimerModel {
     {
     }
 
-    public long getTimerTypeId() {
-        return timerTypeId;
+    public TimerTypes getTimerType() {
+        return timerType;
     }
 
-    public void setTimerTypeId(long timerTypeId) {
-        this.timerTypeId = timerTypeId;
+    public void setTimerType(TimerTypes timerType) {
+        this.timerType = timerType;
     }
 
     public String getInformation() {

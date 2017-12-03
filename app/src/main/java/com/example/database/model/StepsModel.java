@@ -3,6 +3,8 @@ package com.example.database.model;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
+import java.util.Timer;
+
 /**
  * Created by izzyengelbert on 12/3/2017.
  */
@@ -16,7 +18,7 @@ public class StepsModel {
     public static final String COLUMN_TIME = "time";
 
     @DatabaseField(columnName=COLUMN_ID, generatedId=true) private long id;
-    @DatabaseField(columnName = COLUMN_TIMER_ID) private long timerId;
+    @DatabaseField( foreign=true, index=true) private Timer timer;
     @DatabaseField(columnName=COLUMN_NAME) private String name;
     @DatabaseField(columnName=COLUMN_TIME) private int time;
 
@@ -39,15 +41,15 @@ public class StepsModel {
     }
 
 
-    public long getTimerId()
+    public Timer getTimer()
     {
-        return timerId;
+        return timer;
     }
 
 
-    public void setTimerId(long recipe)
+    public void setTimer(Timer recipe)
     {
-        this.timerId = timerId;
+        this.timer = timer;
     }
 
 

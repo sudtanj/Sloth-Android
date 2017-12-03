@@ -66,10 +66,10 @@ public class TimerTypes extends AppCompatActivity{
         prebuiltList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Bundle bundle = new Bundle();
-                bundle.putInt(SELECTED_ITEM_ID,i);
-                bundle.putString(SELECTED_ITEM,adapter.getItem(i));
-                startActivity(new Intent(TimerTypes.this,PrebuiltTimer.class).putExtras(bundle));
+                //Bundle bundle = new Bundle();
+                //bundle.putInt(SELECTED_ITEM_ID,i);
+                //bundle.putString(SELECTED_ITEM,adapter.getItem(i));
+                //startActivity(new Intent(TimerTypes.this,PrebuiltTimer.class).putExtras(bundle));
             }
         });
     }

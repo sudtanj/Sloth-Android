@@ -77,7 +77,7 @@ public class TimerDAO extends DAO
 		{
 			QueryBuilder<TimerModel, Long> queryBuilder = dao.queryBuilder();
 			queryBuilder.where().eq(TimerModel.COLUMN_TIMER_TYPE_ID, timerTypeId);
-			queryBuilder.orderBy(TimerModel.COLUMN_NAME, true);
+			queryBuilder.orderBy(TimerModel.COLUMN_NAME,    true);
 			queryBuilder.offset(skip).limit(take);
 			list = dao.query(queryBuilder.prepare());
 		}

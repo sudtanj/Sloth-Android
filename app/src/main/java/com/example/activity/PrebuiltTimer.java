@@ -31,7 +31,7 @@ public class PrebuiltTimer extends AppCompatActivity {
     }
 
     private void setupViews(){
-        loadTimerList();
+        //loadTimerList();
         timerListView = (ListView) findViewById(R.id.prebuiltTimerList);
         String timerName[] = new String[timerList.size()];
         for(int i=0;i<timerList.size();++i){
@@ -51,12 +51,11 @@ public class PrebuiltTimer extends AppCompatActivity {
         setTitle(getIntent().getExtras().getString(TimerTypes.SELECTED_ITEM));
     }
 
-    private void loadTimerList()
-    {
-        try
+    private void loadTimerList(){
+        /*try
         {
-            //timerList = TimerDAO.readByTimerTypes(getIntent().getExtras().getInt(TimerTypes.SELECTED_ITEM),0,128);
-            timerList = TimerDAO.readAll(0,128);
+            timerList = TimerDAO.readByTimerTypes(getIntent().getExtras().getInt(TimerTypes.SELECTED_ITEM),-11,-11);
+            //timerList = TimerDAO.readAll(-11,-11);
         }
         catch(SQLException e)
         {
