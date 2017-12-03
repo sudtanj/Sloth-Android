@@ -153,8 +153,14 @@ public class ActiveTimers extends Fragment {
         plusFive.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                timeInput.setTime(timeInput.getTime()+5000);
-                text.setText(output.format(timeInput));
+                //timeInput.setTime(timeInput.getTime()+5000);
+                try {
+                    Date temp = output.parse(text.getText().toString());
+                    temp.setTime(temp.getTime()+5000);
+                    text.setText(output.format(temp));
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
             }
         });
         start.setOnClickListener(new View.OnClickListener() {
@@ -163,7 +169,7 @@ public class ActiveTimers extends Fragment {
             public void onClick(View v) {
                 if(text.getText().length()>0) {
                     try {
-                        timeInput.setTime(timeInput.getTime()+(output.parse(text.getText().toString()).getSeconds()*1000));
+                        timeInput.setTime(output.parse(text.getText().toString()).getSeconds()*1000);
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
