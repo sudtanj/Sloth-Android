@@ -73,7 +73,7 @@ public class AllTimers extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        
+
     }
 
     // TODO: Rename method, update argument and hook method into UI event
