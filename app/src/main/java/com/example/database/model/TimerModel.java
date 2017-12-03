@@ -24,7 +24,8 @@ public class TimerModel {
     //public static final String COLUMN_IMAGE = "image";
 
     @DatabaseField(columnName=COLUMN_ID, generatedId=true) private long id;
-    @DatabaseField(foreign=true, index=true) private TimerTypes timerType;
+    //@DatabaseField(foreign=true, index=true) private TimerTypes timerType;
+    @DatabaseField(foreign=true, index=true) private TimerTypesModel timerTypeModel;
     @DatabaseField(columnName=COLUMN_NAME) private String name;
     @DatabaseField(columnName=COLUMN_INFORMATION) private String information;
     //@DatabaseField(columnName=COLUMN_IMAGE) private String image;
@@ -38,11 +39,12 @@ public class TimerModel {
     }
 
     public TimerTypes getTimerType() {
-        return timerType;
+    //    return timerType;
+        return null;
     }
 
     public void setTimerType(TimerTypes timerType) {
-        this.timerType = timerType;
+    //    this.timerType = timerType;
     }
 
     public String getInformation() {
