@@ -91,7 +91,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     }
 
     private void setupActionBar(){
-
+        setTitle(getString(R.string.title_all_timers));
     }
 
     @Override
