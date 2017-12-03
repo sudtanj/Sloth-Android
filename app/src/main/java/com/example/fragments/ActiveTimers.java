@@ -59,7 +59,6 @@ public class ActiveTimers extends Fragment {
     private SimpleDateFormat input = new SimpleDateFormat("mm");
     private SimpleDateFormat output = new SimpleDateFormat("mm:ss");
     private EditText text;
-    private TextView actNameT, timeT;
     private ProgressBar progress;
     private TextToSpeech t1;
     private Button plusFive;
