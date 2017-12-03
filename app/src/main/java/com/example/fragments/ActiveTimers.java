@@ -229,6 +229,11 @@ public class ActiveTimers extends Fragment {
 
     private void runTime(){
         if(text.getText().length()>0) {
+            try {
+                timeInput.setTime(timeInput.getTime()+(output.parse(text.getText().toString()).getSeconds()*1000));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
             progress.setSecondaryProgressTintList(ColorStateList.valueOf(Color.WHITE));
             start.setEnabled(false);
             progress.setMax((int)timeInput.getTime());
