@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+    <TextView
+        android:id="@+id/promptAddStepText1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Steps name : "
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <EditText
+        android:id="@+id/editTextDialogUserInputName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="input step name">
+        <requestFocus />
+
+    </EditText>
+    <TextView
+        android:id="@+id/promptAddStepText2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Input how long : "
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <EditText
+        android:id="@+id/editTextDialogUserInputSeconds"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="In seconds"/>
+
+
+
+</LinearLayout>

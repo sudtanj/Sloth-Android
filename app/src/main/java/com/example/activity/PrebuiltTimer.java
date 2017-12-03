@@ -1,5 +1,6 @@
 package com.example.activity;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -14,12 +15,13 @@ import com.example.database.model.TimerModel;
 import com.example.database.model.TimerTypesModel;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class PrebuiltTimer extends AppCompatActivity {
 
 
-    private List<TimerModel> timerList;
+    private List<TimerModel> timerList = new ArrayList<>();
     ListView timerListView;
 
     @Override
@@ -44,6 +46,11 @@ public class PrebuiltTimer extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
+                Bundle bundle = new Bundle();
+                bundle.putString(AddTimer.KEY,timerListView.getItemAtPosition(i).toString());
+                Intent intent = new Intent(getApplicationContext(),AddTimer.class);
+                intent.putExtras(bundle);
+                startActivity(intent);
             }
         });
     }
@@ -55,24 +62,11 @@ public class PrebuiltTimer extends AppCompatActivity {
     private void loadTimerList(){
         try
         {
-            timerList = TimerDAO.readByTimerTypes(getIntent().getExtras().getInt(TimerTypes.SELECTED_ITEM_ID),-11,-11);
-            //timerList = TimerDAO.readAll(-11,-11);
+            timerList = TimerDAO.readByTimerTypes(getIntent().getExtras().getInt(TimerTypes.SELECTED_ITEM_ID)+1,-11,-11);
         }
         catch(SQLException e)
         {
             e.printStackTrace();
         }
-
-        /*TimerTypesModel all = new TimerTypesModel();
-        all.setId(CATEGORY_ID_ALL);
-        all.setName(getResources().getString(R.string.drawer_category_all));
-
-        CategoryModel favorites = new CategoryModel();
-        favorites.setId(RecipeListFragment.CATEGORY_ID_FAVORITES);
-        favorites.setName(getResources().getString(R.string.drawer_category_favorites));
-        favorites.setImage("drawable://" + R.drawable.ic_category_favorites);
-
-        timerTypesList.add(0, all);
-        timerTypesList.add(1, favorites);*/
     }
 }

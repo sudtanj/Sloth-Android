@@ -106,7 +106,11 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     }
 
     @Override
-    public void allTimersInteraction(String id) {
-        
+    public void allTimersInteraction(long id) {
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        Bundle bundle = new Bundle();
+        bundle.putLong(ActiveTimers.ITEM,id);
+        activeTimers.setArguments(bundle);
+        fragmentTransaction.replace(R.id.frameContainer,activeTimers).commit();
     }
 }

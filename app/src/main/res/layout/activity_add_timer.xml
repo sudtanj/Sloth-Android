@@ -15,6 +15,14 @@
         android:hint="@string/timer_name_hint"
         android:textAlignment="center" />
 
+    <EditText
+        android:id="@+id/timerInformation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/timer_information_hint"
+        android:layout_below="@id/timerName"
+        android:textAlignment="center" />
+
     <TextView
         android:id="@+id/stepsText"
         android:layout_width="wrap_content"
@@ -23,7 +31,7 @@
         android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"
         android:layout_marginLeft="8dp"
-        android:layout_below="@id/timerName"
+        android:layout_below="@id/timerInformation"
         android:layout_alignParentLeft="true"/>
 
     <TextView
@@ -34,7 +42,7 @@
         android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"
         android:layout_marginRight="8dp"
-        android:layout_below="@id/timerName"
+        android:layout_below="@id/timerInformation"
         android:layout_alignParentRight="true"/>
 
     <ListView
@@ -50,7 +58,8 @@
         android:layout_height="wrap_content"
         android:text="@string/add_step_button"
         android:textAllCaps="false"
-        android:backgroundTint="@color/colorPrimary1"
+        android:textColor="@color/wallet_highlighted_text_holo_light"
+        android:backgroundTint="@color/colorPrimary"
         android:layout_below="@id/stepsList"
         android:layout_margin="16dp"
         android:layout_centerHorizontal="true"
@@ -62,7 +71,8 @@
         android:layout_height="wrap_content"
         android:text="@string/done_button"
         android:textAllCaps="false"
-        android:backgroundTint="@color/colorPrimary1"
+        android:textColor="@color/wallet_highlighted_text_holo_light"
+        android:backgroundTint="@color/colorPrimary"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_margin="24dp"

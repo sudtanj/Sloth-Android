@@ -21,6 +21,8 @@
     <string name="steps_text">Steps</string>
     <string name="edit_text">Edit</string>
     <string name="timer_name_hint">Timer Name</string>
+    <string name="timer_information_hint">Timer Information</string>
+    <string name="timer_edit_text">Remove which step?</string>
     <string name="add_step_button">Add a step</string>
     <string name="done_button">Done</string>
 

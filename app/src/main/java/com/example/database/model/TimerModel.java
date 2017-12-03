@@ -24,20 +24,8 @@ public class TimerModel {
     //public static final String COLUMN_IMAGE = "image";
 
     @DatabaseField(columnName=COLUMN_ID, generatedId=true) private long id;
-    @DatabaseField(foreign=true, index=true) private TimerTypesModel timerType;
-
-    public String getTimer_types_id() {
-        return timer_types_id;
-    }
-
-    //@DatabaseField(foreign=true, index=true) private TimerTypesModel timerTypeModel;
+    @DatabaseField(columnName = COLUMN_TIMER_TYPE_ID,foreign=true, index=true) private TimerTypesModel timerType;
     @DatabaseField(columnName=COLUMN_NAME) private String name;
-
-    public void setTimer_types_id(String timer_types_id) {
-        this.timer_types_id = timer_types_id;
-    }
-
-    @DatabaseField(columnName=COLUMN_TIMER_TYPE_ID) private String timer_types_id;
     @DatabaseField(columnName=COLUMN_INFORMATION) private String information;
     //@DatabaseField(columnName=COLUMN_IMAGE) private String image;
     @ForeignCollectionField

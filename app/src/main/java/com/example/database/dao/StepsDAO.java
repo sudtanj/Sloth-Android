@@ -85,10 +85,10 @@ public class StepsDAO extends DAO
 	}
 	
 	
-	public static int update(StepsModel ingredient) throws SQLException
+	public static int update(StepsModel stepsModel) throws SQLException
 	{
 		Dao<StepsModel, Long> dao = getDao();
-		return dao.update(ingredient);
+		return dao.update(stepsModel);
 	}
 	
 	

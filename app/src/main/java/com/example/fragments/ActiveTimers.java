@@ -16,20 +16,31 @@ import android.text.Editable;
 import android.text.InputFilter;
 import android.text.TextWatcher;
 import android.text.method.DigitsKeyListener;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.R;
+import com.example.database.dao.StepsDAO;
+import com.example.database.dao.TimerDAO;
+import com.example.database.model.StepsModel;
+import com.example.database.model.TimerModel;
 
+import java.sql.SQLException;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 
@@ -51,10 +62,17 @@ public class ActiveTimers extends Fragment {
     private String mParam1;
     private String mParam2;
 
+    TimerModel timerModel;
+    List<StepsModel> timerSteps = new ArrayList<>();
+    ListView stepsList;
+
     private OnFragmentInteractionListener mListener;
 
+    public static final String ITEM = "item";
+    private StepsModel stepsModelTemp;
+
     private Button start;
-    private Button addAc;
+    private Button next;
     private CountDownTimer timer;
     private SimpleDateFormat input = new SimpleDateFormat("mm");
     private SimpleDateFormat output = new SimpleDateFormat("mm:ss");
@@ -63,6 +81,7 @@ public class ActiveTimers extends Fragment {
     private TextToSpeech t1;
     private Button plusFive;
     private Date timeInput;
+    private int index;
 
     private Context context;
 
@@ -116,12 +135,30 @@ public class ActiveTimers extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         //actNameT = (TextView) view.findViewById(R.id.textView4);
         //timeT = (TextView) view.findViewById(R.id.textView5);
+        if(getArguments().getLong(ITEM)==1){
+            loadTimerSelected();
+        }
         start = (Button) view.findViewById(R.id.startButton);
         text = (EditText) view.findViewById(R.id.inputTime);
         progress= (ProgressBar) view.findViewById(R.id.circularProgressbar);
         plusFive = (Button) view.findViewById(R.id.addTimeButton);
-        timeInput = new Date(0);
+        stepsList = (ListView) view.findViewById(R.id.activeTimersStepList);
+        next = (Button) view.findViewById(R.id.nextButton);
+        ArrayList<String> list = new ArrayList<>();
+        for(StepsModel step : timerSteps){
+            list.add(step.getName());
+        }
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1,list);
+        stepsList.setAdapter(arrayAdapter);
+        stepsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                index = i;
+                stepsModelTemp = timerSteps.get(i);
+            }
+        });
 
+        timeInput = new Date(0);
         text.setText(output.format(timeInput));
         text.setGravity(Gravity.CENTER);
         text.setFilters(new InputFilter[] {new InputFilter.LengthFilter(5)});
@@ -150,10 +187,15 @@ public class ActiveTimers extends Fragment {
 
             }
         });
+        next.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                index+=1;
+            }
+        });
         plusFive.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //timeInput.setTime(timeInput.getTime()+5000);
                 try {
                     Date temp = output.parse(text.getText().toString());
                     temp.setTime(temp.getTime()+5000);
@@ -167,63 +209,83 @@ public class ActiveTimers extends Fragment {
             @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override
             public void onClick(View v) {
-                if(text.getText().length()>0) {
-                    try {
-                        timeInput.setTime(output.parse(text.getText().toString()).getSeconds()*1000);
-                    } catch (ParseException e) {
-                        e.printStackTrace();
-                    }
-                    progress.setSecondaryProgressTintList(ColorStateList.valueOf(Color.WHITE));
-                    start.setEnabled(false);
-                    progress.setMax((int)timeInput.getTime());
-                    progress.setProgress((int)timeInput.getTime());
-                    text.clearFocus();
-                    text.setEnabled(false);
-                    new CountDownTimer(timeInput.getTime(), 1000) {
-                        @Override
-                        public void onTick(long millisUntilFinished) {
-                            progress.setProgress(progress.getProgress() - 1000);
-                            text.setText(output.format(new Date(millisUntilFinished)));
-                        }
-
-                        @Override
-                        public void onFinish() {
-                            String output1="Your main countdown is up!";
-                            Toast.makeText(context,output1,Toast.LENGTH_SHORT).show();
-                            t1.speak(output1, TextToSpeech.QUEUE_FLUSH, null);
-                            timeInput.setTime(0);
-                            text.setText(output.format(timeInput));
-                            text.setEnabled(true);
-                            start.setEnabled(true);
-                            progress.setSecondaryProgressTintList(ColorStateList.valueOf(Color.BLACK));
-                        }
-                    }.start();
-                }
-                else {
-                    Toast.makeText(context,"Timer is not yet filled! please filled in seconds format!",Toast.LENGTH_SHORT).show();
-                }
+                runTime();
             }
         });
-
-        /*addAc = (Button) findViewById(R.id.addActivity);
-        addAc.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(context, addActivity.class);
-                startActivityForResult(intent, 1);
-            }
-        });*/
     }
 
-    /*protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == 1) {
-            String names = data.getStringExtra("NAME");
-            actNameT.setText(names);
-            String time = text.getText().toString();
-            timeT.setText(time+"s");
-        }
+    @Override
+    public void onResume() {
+        super.onResume();
+        setupTimer();
+    }
 
-    }*/
+    @Override
+    public void onStart() {
+        super.onStart();
+        setupTimer();
+
+    }
+
+    private void runTime(){
+        if(text.getText().length()>0) {
+            progress.setSecondaryProgressTintList(ColorStateList.valueOf(Color.WHITE));
+            start.setEnabled(false);
+            progress.setMax((int)timeInput.getTime());
+            progress.setProgress((int)timeInput.getTime());
+            text.clearFocus();
+            text.setEnabled(false);
+            new CountDownTimer(timeInput.getTime(), 1000) {
+                @Override
+                public void onTick(long millisUntilFinished) {
+                    progress.setProgress(progress.getProgress() - 1000);
+                    text.setText(output.format(new Date(millisUntilFinished)));
+                }
+
+                @Override
+                public void onFinish() {
+                    if(timerSteps.size()>=index){
+                        index++;
+                    }
+                    String output1="Your main countdown is up!";
+                    Toast.makeText(context,output1,Toast.LENGTH_SHORT).show();
+                    t1.speak(output1, TextToSpeech.QUEUE_FLUSH, null);
+                    timeInput.setTime(0);
+                    text.setText(output.format(timeInput));
+                    text.setEnabled(true);
+                    start.setEnabled(true);
+                    progress.setSecondaryProgressTintList(ColorStateList.valueOf(Color.BLACK));
+                }
+            }.start();
+        }
+        else {
+            Toast.makeText(context,"Timer is not yet filled! please filled in seconds format!",Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void setupTimer(){
+        if(stepsModelTemp!=null){
+            Date temp = null;
+            try {
+                Log.d("TimeValue :",String.valueOf(timerSteps.get(index).getTime()));
+                temp = output.parse(text.getText().toString());
+                timeInput.setTime(timerSteps.get(index).getTime()*1000);
+                text.setText(output.format(temp));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private void loadTimerSelected(){
+        try {
+            timerModel = TimerDAO.read(getArguments().getLong(ITEM));
+            timerSteps = StepsDAO.readByTimer(timerModel.getId(),-11,-11);
+            stepsModelTemp = timerSteps.get(index);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
     @Override
     public void onAttach(Context context) {

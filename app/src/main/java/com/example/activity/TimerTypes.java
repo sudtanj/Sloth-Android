@@ -51,6 +51,7 @@ public class TimerTypes extends AppCompatActivity{
                 if(i == MENU_ADD_TIMER){
                     Intent intent = new Intent(TimerTypes.this,AddTimer.class);
                     intent.putExtra(MainActivity.THEME, getIntent().getExtras().getInt(MainActivity.THEME));
+                    intent.putExtra(AddTimer.MENU_KEY,AddTimer.MANUAL);
                     startActivity(intent);
                 }
             }
@@ -60,6 +61,7 @@ public class TimerTypes extends AppCompatActivity{
     }
 
     private void setupPrebuiltTimers(){
+        loadTimerTypesList();
         try
         {
             timerTypesList = TimerTypesDAO.readAll(-11, -11);
@@ -75,12 +77,11 @@ public class TimerTypes extends AppCompatActivity{
         }
         final ArrayAdapter<String> adapter = new ArrayAdapter<>(getApplicationContext(),android.R.layout.simple_list_item_1,timerTypeName);
         prebuiltList.setAdapter(adapter);
-        //Log.d("TESTING",timerTypesList.get(2).toString());
         prebuiltList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
-
+                adapterView.setBackgroundColor(getResources().getColor(R.color.colorAccent));
                 Bundle bundle = new Bundle();
                 bundle.putInt(SELECTED_ITEM_ID,i);
                 bundle.putString(SELECTED_ITEM,adapter.getItem(i));
@@ -103,18 +104,6 @@ public class TimerTypes extends AppCompatActivity{
         {
             e.printStackTrace();
         }
-
-        /*TimerTypesModel all = new TimerTypesModel();
-        all.setId(CATEGORY_ID_ALL);
-        all.setName(getResources().getString(R.string.drawer_category_all));
-
-        CategoryModel favorites = new CategoryModel();
-        favorites.setId(RecipeListFragment.CATEGORY_ID_FAVORITES);
-        favorites.setName(getResources().getString(R.string.drawer_category_favorites));
-        favorites.setImage("drawable://" + R.drawable.ic_category_favorites);
-
-        timerTypesList.add(0, all);
-        timerTypesList.add(1, favorites);*/
     }
 
 }

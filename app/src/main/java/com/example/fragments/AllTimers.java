@@ -44,6 +44,8 @@ public class AllTimers extends Fragment {
     ListView allTimers;
     List<TimerModel> allTimerList = new ArrayList<>();
 
+    List<TimerModel> tempTimer = new ArrayList<>();
+
     public AllTimers() {
         // Required empty public constructor
     }
@@ -93,10 +95,10 @@ public class AllTimers extends Fragment {
         loadAllTimerList();
         ArrayList<String> list = new ArrayList<>();
         for(int i=0;i<allTimerList.size();++i){
-            if(allTimerList.get(i).getTimerType().getId()==4){
-
-            }
+            //if(allTimerList.get(i).getTimerType().getId()==3){
             list.add(allTimerList.get(i).getName());
+            tempTimer.add(allTimerList.get(i));
+            //}
         }
 
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(getActivity(),android.R.layout.simple_list_item_1,list);
@@ -105,13 +107,19 @@ public class AllTimers extends Fragment {
         allTimers.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                mListener.allTimersInteraction((String)allTimers.getItemAtPosition(i));
+                long id = 0;
+                for(TimerModel temp : tempTimer){
+                    if(temp.getName().equals((String)allTimers.getItemAtPosition(i))){
+                        id = temp.getId();
+                    }
+                }
+                mListener.allTimersInteraction(id);
             }
         });
     }
 
     // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(String uri) {
+    public void onButtonPressed(long uri) {
         if (mListener != null) {
             mListener.allTimersInteraction(uri);
         }
@@ -146,7 +154,7 @@ public class AllTimers extends Fragment {
      */
     public interface AllTimersListener {
         // TODO: Update argument type and name
-        void allTimersInteraction(String name);
+        void allTimersInteraction(long id);
     }
 
     private void loadAllTimerList()
@@ -159,17 +167,5 @@ public class AllTimers extends Fragment {
         {
             e.printStackTrace();
         }
-
-        /*TimerTypesModel all = new TimerTypesModel();
-        all.setId(CATEGORY_ID_ALL);
-        all.setName(getResources().getString(R.string.drawer_category_all));
-
-        CategoryModel favorites = new CategoryModel();
-        favorites.setId(RecipeListFragment.CATEGORY_ID_FAVORITES);
-        favorites.setName(getResources().getString(R.string.drawer_category_favorites));
-        favorites.setImage("drawable://" + R.drawable.ic_category_favorites);
-
-        timerTypesList.add(0, all);
-        timerTypesList.add(1, favorites);*/
     }
 }
