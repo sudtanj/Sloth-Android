@@ -1,4 +1,4 @@
-# HCI-SlothTime
+# HCI-Sloth
 
 ## Project Member
 | No | Profile Picture | Member Name | Github Userid | Student Id Number |
