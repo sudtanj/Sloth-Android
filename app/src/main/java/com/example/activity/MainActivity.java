@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.RelativeLayout;
 
 import com.example.SlothTimeApplication;
 import com.example.fragments.ActiveTimers;
@@ -17,21 +18,25 @@ import com.example.fragments.AllTimers;
 import com.example.R;
 import com.example.fragments.Settings;
 
-public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener{
+public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener,Settings.OnFragmentInteractionListener{
 
     //private TextView mTextMessage;
     //Fragments
     private AllTimers allTimers;
     private ActiveTimers activeTimers;
     private Settings settings;
+    public static final String THEME = "Theme";
+    private int theme = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        setTheme(R.style.AppTheme1);
         initializeViews();
         setupActionBar();
+        //ContextThemeWrapper tes = getApplicationContext().getTheme().applyStyle();
         Log.d("tes","msuk");
         if (savedInstanceState == null) {
             if(allTimers==null){
@@ -58,6 +63,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         switch (item.getItemId()) {
             case R.id.add_timer:
                 Intent intent = new Intent(MainActivity.this, TimerTypes.class);
+                intent.putExtra(THEME,theme);
                 startActivity(intent);
                 return true;
         }
@@ -93,4 +99,9 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         return false;
     }
 
+    @Override
+    public void onFragmentInteraction(int id) {
+        this.theme = id;
+        setTheme(id);
+    }
 }

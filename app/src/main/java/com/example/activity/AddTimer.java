@@ -12,6 +12,7 @@ public class AddTimer extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_timer);
+        setTheme(getIntent().getExtras().getInt(MainActivity.THEME));
         setupActionBar();
     }
 

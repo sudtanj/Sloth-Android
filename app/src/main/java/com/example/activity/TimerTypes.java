@@ -14,6 +14,7 @@ import com.example.database.dao.TimerTypesDAO;
 import com.example.database.model.TimerTypesModel;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class TimerTypes extends AppCompatActivity{
@@ -22,16 +23,16 @@ public class TimerTypes extends AppCompatActivity{
     public static final String SELECTED_ITEM = "name";
 
     public static final int MENU_ADD_TIMER = 0;
-    public static final long TIMER_TYPES_ID_ALL = -1l;
     String timerTypesMenu[] = {""};
     ListView manualTimersList;
-    private List<TimerTypesModel> timerTypesList;
+    private List<TimerTypesModel> timerTypesList = new ArrayList<>();
     ListView prebuiltList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timer_types);
+        setTheme(getIntent().getExtras().getInt(MainActivity.THEME));
         setupViews();
         setupActionBar();
         setupPrebuiltTimers();
@@ -47,6 +48,7 @@ public class TimerTypes extends AppCompatActivity{
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 if(i == MENU_ADD_TIMER){
                     Intent intent = new Intent(TimerTypes.this,AddTimer.class);
+                    intent.putExtra(MainActivity.THEME, getIntent().getExtras().getInt(MainActivity.THEME));
                     startActivity(intent);
                 }
             }

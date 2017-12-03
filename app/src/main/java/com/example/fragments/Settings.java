@@ -8,6 +8,8 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.widget.RadioButton;
 import android.widget.Toolbar;
 
 import com.example.R;
@@ -32,6 +34,11 @@ public class Settings extends Fragment {
     private String mParam2;
 
     Context context;
+
+    RadioButton button1;
+    RadioButton button2;
+    RadioButton button3;
+
 
     private OnFragmentInteractionListener mListener;
 
@@ -71,15 +78,37 @@ public class Settings extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_settings, container, false);
+
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        button1 = (RadioButton) view.findViewById(R.id.themeOne);
+        button2 = (RadioButton) view.findViewById(R.id.themeTwo);
+        button3 = (RadioButton) view.findViewById(R.id.themeThree);
+        button1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mListener.onFragmentInteraction(R.style.AppTheme1);
+            }
+        });
+        button2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mListener.onFragmentInteraction(R.style.AppTheme2);
+            }
+        });
+        button3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mListener.onFragmentInteraction(R.style.AppTheme3);
+            }
+        });
     }
 
     // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
+    public void onButtonPressed(int uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
         }
@@ -115,6 +144,6 @@ public class Settings extends Fragment {
      */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+        void onFragmentInteraction(int id);
     }
 }

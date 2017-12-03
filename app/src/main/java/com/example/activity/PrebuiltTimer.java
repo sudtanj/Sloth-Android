@@ -26,6 +26,7 @@ public class PrebuiltTimer extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_prebuilt_timer);
+        setTheme(getIntent().getExtras().getInt(MainActivity.THEME));
         setupActionBar();
         setupViews();
     }
