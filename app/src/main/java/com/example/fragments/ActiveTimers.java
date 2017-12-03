@@ -135,7 +135,7 @@ public class ActiveTimers extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         //actNameT = (TextView) view.findViewById(R.id.textView4);
         //timeT = (TextView) view.findViewById(R.id.textView5);
-        if(getArguments().getLong(ITEM)==1){
+        if(getArguments()!=null){
             loadTimerSelected();
         }
         start = (Button) view.findViewById(R.id.startButton);
