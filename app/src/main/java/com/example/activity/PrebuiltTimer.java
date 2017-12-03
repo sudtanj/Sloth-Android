@@ -55,7 +55,7 @@ public class PrebuiltTimer extends AppCompatActivity {
     private void loadTimerList(){
         try
         {
-            timerList = TimerDAO.readByTimerTypes(getIntent().getExtras().getInt(TimerTypes.SELECTED_ITEM),0,128);
+            timerList = TimerDAO.readByTimerTypes(getIntent().getExtras().getInt(TimerTypes.SELECTED_ITEM_ID),0,128);
             //timerList = TimerDAO.readAll(-11,-11);
         }
         catch(SQLException e)

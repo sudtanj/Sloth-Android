@@ -93,12 +93,13 @@ public class AllTimers extends Fragment {
         loadAllTimerList();
         ArrayList<String> list = new ArrayList<>();
         for(int i=0;i<allTimerList.size();++i){
-            if(allTimerList.get(i).getTimerType().getId()==3){
-                list.add(allTimerList.get(i).getName());
+            if(allTimerList.get(i).getTimerType().getId()==4){
+
             }
+            list.add(allTimerList.get(i).getName());
         }
 
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(getContext(),android.R.layout.simple_list_item_1,list);
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(getActivity(),android.R.layout.simple_list_item_1,list);
         allTimers.setAdapter(arrayAdapter);
 
         allTimers.setOnItemClickListener(new AdapterView.OnItemClickListener() {
