@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -74,13 +75,16 @@ public class TimerTypes extends AppCompatActivity{
         }
         final ArrayAdapter<String> adapter = new ArrayAdapter<>(getApplicationContext(),android.R.layout.simple_list_item_1,timerTypeName);
         prebuiltList.setAdapter(adapter);
+        //Log.d("TESTING",timerTypesList.get(2).toString());
         prebuiltList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                //Bundle bundle = new Bundle();
-                //bundle.putInt(SELECTED_ITEM_ID,i);
-                //bundle.putString(SELECTED_ITEM,adapter.getItem(i));
-                //startActivity(new Intent(TimerTypes.this,PrebuiltTimer.class).putExtras(bundle));
+
+
+                Bundle bundle = new Bundle();
+                bundle.putInt(SELECTED_ITEM_ID,i);
+                bundle.putString(SELECTED_ITEM,adapter.getItem(i));
+                startActivity(new Intent(TimerTypes.this,PrebuiltTimer.class).putExtras(bundle));
             }
         });
     }

@@ -8,14 +8,23 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 import com.example.R;
+import com.example.database.dao.TimerDAO;
+import com.example.database.dao.TimerTypesDAO;
+import com.example.database.model.TimerModel;
+
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link AllTimers.OnFragmentInteractionListener} interface
  * to handle interaction events.
  * Use the {@link AllTimers#newInstance} factory method to
  * create an instance of this fragment.
@@ -30,7 +39,10 @@ public class AllTimers extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    private OnFragmentInteractionListener mListener;
+    private AllTimersListener mListener;
+
+    ListView allTimers;
+    List<TimerModel> allTimerList = new ArrayList<>();
 
     public AllTimers() {
         // Required empty public constructor
@@ -73,21 +85,42 @@ public class AllTimers extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        allTimers = (ListView) view.findViewById(R.id.allTimers);
+        setupAllTimers();
+    }
 
+    private void setupAllTimers(){
+        loadAllTimerList();
+        ArrayList<String> list = new ArrayList<>();
+        for(int i=0;i<allTimerList.size();++i){
+            if(allTimerList.get(i).getTimerType().getId()==3){
+                list.add(allTimerList.get(i).getName());
+            }
+        }
+
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(getContext(),android.R.layout.simple_list_item_1,list);
+        allTimers.setAdapter(arrayAdapter);
+
+        allTimers.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                mListener.allTimersInteraction((String)allTimers.getItemAtPosition(i));
+            }
+        });
     }
 
     // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
+    public void onButtonPressed(String uri) {
         if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
+            mListener.allTimersInteraction(uri);
         }
     }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
+        if (context instanceof AllTimersListener) {
+            mListener = (AllTimersListener) context;
         } else {
             /*throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");*/
@@ -110,8 +143,32 @@ public class AllTimers extends Fragment {
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.
      */
-    public interface OnFragmentInteractionListener {
+    public interface AllTimersListener {
         // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+        void allTimersInteraction(String name);
+    }
+
+    private void loadAllTimerList()
+    {
+        try
+        {
+            allTimerList = TimerDAO.readAll(-1l, -1l);
+        }
+        catch(SQLException e)
+        {
+            e.printStackTrace();
+        }
+
+        /*TimerTypesModel all = new TimerTypesModel();
+        all.setId(CATEGORY_ID_ALL);
+        all.setName(getResources().getString(R.string.drawer_category_all));
+
+        CategoryModel favorites = new CategoryModel();
+        favorites.setId(RecipeListFragment.CATEGORY_ID_FAVORITES);
+        favorites.setName(getResources().getString(R.string.drawer_category_favorites));
+        favorites.setImage("drawable://" + R.drawable.ic_category_favorites);
+
+        timerTypesList.add(0, all);
+        timerTypesList.add(1, favorites);*/
     }
 }

@@ -106,4 +106,28 @@ public class TimerDAO extends DAO
 		return dao.delete(deleteBuilder.prepare());
 	}
 
+	public static List<TimerModel> search(String query, long skip, long take) throws SQLException
+	{
+		Dao<TimerModel, Long> dao = getDao();
+		List<TimerModel> list;
+		if(skip==-1l && take==-1l)
+		{
+			QueryBuilder<TimerModel, Long> queryBuilder = dao.queryBuilder();
+			queryBuilder.where()
+					.like(TimerModel.COLUMN_NAME, "%" + query + "%");
+			queryBuilder.orderBy(TimerModel.COLUMN_NAME, true);
+			list = dao.query(queryBuilder.prepare());
+		}
+		else
+		{
+			QueryBuilder<TimerModel, Long> queryBuilder = dao.queryBuilder();
+			queryBuilder.where()
+					.like(TimerModel.COLUMN_NAME, "%" + query + "%");
+			queryBuilder.orderBy(TimerModel.COLUMN_NAME, true);
+			queryBuilder.offset(skip).limit(take);
+			list = dao.query(queryBuilder.prepare());
+		}
+		return list;
+	}
+
 }

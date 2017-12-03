@@ -18,7 +18,7 @@ import com.example.fragments.AllTimers;
 import com.example.R;
 import com.example.fragments.Settings;
 
-public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener,Settings.OnFragmentInteractionListener{
+public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener,Settings.OnFragmentInteractionListener,AllTimers.AllTimersListener{
 
     //private TextView mTextMessage;
     //Fragments
@@ -103,5 +103,10 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     public void onFragmentInteraction(int id) {
         this.theme = id;
         setTheme(id);
+    }
+
+    @Override
+    public void allTimersInteraction(String id) {
+        
     }
 }

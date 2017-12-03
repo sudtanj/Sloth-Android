@@ -18,8 +18,8 @@ public class StepsModel {
     public static final String COLUMN_TIME = "time";
 
     @DatabaseField(columnName=COLUMN_ID, generatedId=true) private long id;
-    //@DatabaseField( foreign=true, index=true) private Timer timer;
-    @DatabaseField( foreign=true, index=true) private TimerModel timerModel;
+    @DatabaseField(foreign=true, index=true) private TimerModel timer;
+    //@DatabaseField( foreign=true, index=true) private TimerModel timerModel;
     @DatabaseField(columnName=COLUMN_NAME) private String name;
     @DatabaseField(columnName=COLUMN_TIME) private int time;
 
@@ -42,16 +42,15 @@ public class StepsModel {
     }
 
 
-    public Timer getTimer()
+    public TimerModel getTimer()
     {
-        //return timer;
-        return null;
+        return timer;
     }
 
 
-    public void setTimer(Timer recipe)
+    public void setTimer(TimerModel timer)
     {
-        //this.timer = timer;
+        this.timer = timer;
     }
 
 
