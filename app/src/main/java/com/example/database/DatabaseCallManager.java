@@ -3,8 +3,8 @@ package com.example.database;
 import android.os.AsyncTask;
 import android.os.Build;
 
-import com.hciproject.makanapa.database.query.Query;
-import com.hciproject.makanapa.utility.Logcat;
+
+import com.example.database.query.Query;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -82,9 +82,9 @@ public class DatabaseCallManager
 	{
 		for(DatabaseCallTask task : mTaskList)
 		{
-			Logcat.d("DatabaseCallManager.printRunningTasks(): " + (task==null ? "null" : (task.getQuery().getClass().getSimpleName() + " / " + task.getStatus().toString())));
+			//Logcat.d("DatabaseCallManager.printRunningTasks(): " + (task==null ? "null" : (task.getQuery().getClass().getSimpleName() + " / " + task.getStatus().toString())));
 		}
 		
-		if(mTaskList.isEmpty()) Logcat.d("DatabaseCallManager.printRunningTasks(): empty");
+		//if(mTaskList.isEmpty()) Logcat.d("DatabaseCallManager.printRunningTasks(): empty");
 	}
 }

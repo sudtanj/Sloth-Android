@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/Sloth-New.iml" filepath="$PROJECT_DIR$/.idea/Sloth-New.iml" />
-      <module fileurl="file://D:\Android Project\Sloth-New\SlothNew.iml" filepath="D:\Android Project\Sloth-New\SlothNew.iml" />
+      <module fileurl="file://$PROJECT_DIR$/SlothNew.iml" filepath="$PROJECT_DIR$/SlothNew.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
