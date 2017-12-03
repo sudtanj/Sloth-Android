@@ -1,10 +1,10 @@
-package com.hciproject.makanapa.database;
+package com.example.database;
 
 import android.os.AsyncTask;
 
-import com.hciproject.makanapa.database.data.Data;
-import com.hciproject.makanapa.database.query.Query;
-import com.hciproject.makanapa.utility.Logcat;
+
+import com.example.database.data.Data;
+import com.example.database.query.Query;
 
 import java.lang.ref.WeakReference;
 
@@ -77,6 +77,6 @@ public class DatabaseCallTask extends AsyncTask<Void, Void, Data<?>>
 	@Override
 	protected void onCancelled()
 	{
-		Logcat.d("DatabaseCallTask.onCancelled()");
+
 	}
 }

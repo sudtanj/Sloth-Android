@@ -1,14 +1,15 @@
-package com.hciproject.makanapa.database.query;
+package com.example.database.query;
 
-import com.hciproject.makanapa.database.dao.CategoryDAO;
-import com.hciproject.makanapa.database.data.Data;
+
+import com.example.database.dao.TimerTypesDAO;
+import com.example.database.data.Data;
 
 import java.sql.SQLException;
 
 
-public class CategoryDeleteAllQuery extends Query
+public class TimerTypesDeleteAllQuery extends Query
 {
-	public CategoryDeleteAllQuery()
+	public TimerTypesDeleteAllQuery()
 	{
 	}
 
@@ -17,7 +18,7 @@ public class CategoryDeleteAllQuery extends Query
 	public Data<Integer> processData() throws SQLException
 	{
 		Data<Integer> data = new Data<>();
-		data.setDataObject(CategoryDAO.deleteAll());
+		data.setDataObject(TimerTypesDAO.deleteAll());
 		return data;
 	}
 }

@@ -1,7 +1,7 @@
 package com.example.database.dao;
 
-import com.hciproject.makanapa.database.DatabaseHelper;
-import com.hciproject.makanapa.database.model.CategoryModel;
+import com.example.database.DatabaseHelper;
+import com.example.database.model.TimerTypesModel;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.stmt.DeleteBuilder;
 import com.j256.ormlite.stmt.QueryBuilder;
@@ -10,50 +10,50 @@ import java.sql.SQLException;
 import java.util.List;
 
 
-public class CategoryDAO extends DAO
+public class TimerTypesDAO extends DAO
 {
-	private static Dao<CategoryModel, Long> getDao() throws SQLException
+	private static Dao<TimerTypesModel, Long> getDao() throws SQLException
 	{
 		DatabaseHelper databaseHelper = DatabaseHelper.getInstance();
-		return databaseHelper.getCategoryDao();
+		return databaseHelper.getTimerTypesDAO();
 	}
 	
 	
-	public static int refresh(CategoryModel category) throws SQLException
+	public static int refresh(TimerTypesModel category) throws SQLException
 	{
-		Dao<CategoryModel, Long> dao = getDao();
+		Dao<TimerTypesModel, Long> dao = getDao();
 		return dao.refresh(category);
 	}
 	
 	
-	public static int create(CategoryModel category) throws SQLException
+	public static int create(TimerTypesModel category) throws SQLException
 	{
-		Dao<CategoryModel, Long> dao = getDao();
+		Dao<TimerTypesModel, Long> dao = getDao();
 		return dao.create(category);
 	}
 	
 	
-	public static CategoryModel read(long id) throws SQLException
+	public static TimerTypesModel read(long id) throws SQLException
 	{
-		Dao<CategoryModel, Long> dao = getDao();
+		Dao<TimerTypesModel, Long> dao = getDao();
 		return dao.queryForId(id);
 	}
 	
 	
-	public static List<CategoryModel> readAll(long skip, long take) throws SQLException
+	public static List<TimerTypesModel> readAll(long skip, long take) throws SQLException
 	{
-		Dao<CategoryModel, Long> dao = getDao();
-		List<CategoryModel> list;
+		Dao<TimerTypesModel, Long> dao = getDao();
+		List<TimerTypesModel> list;
 		if(skip==-1l && take==-1l)
 		{
-			QueryBuilder<CategoryModel, Long> queryBuilder = dao.queryBuilder();
-			queryBuilder.orderBy(CategoryModel.COLUMN_ID, true);
+			QueryBuilder<TimerTypesModel, Long> queryBuilder = dao.queryBuilder();
+			queryBuilder.orderBy(TimerTypesModel.COLUMN_ID, true);
 			list = dao.query(queryBuilder.prepare());
 		}
 		else
 		{
-			QueryBuilder<CategoryModel, Long> queryBuilder = dao.queryBuilder();
-			queryBuilder.orderBy(CategoryModel.COLUMN_ID, true);
+			QueryBuilder<TimerTypesModel, Long> queryBuilder = dao.queryBuilder();
+			queryBuilder.orderBy(TimerTypesModel.COLUMN_ID, true);
 			queryBuilder.offset(skip).limit(take);
 			list = dao.query(queryBuilder.prepare());
 		}
@@ -61,24 +61,24 @@ public class CategoryDAO extends DAO
 	}
 	
 	
-	public static int update(CategoryModel category) throws SQLException
+	public static int update(TimerTypesModel category) throws SQLException
 	{
-		Dao<CategoryModel, Long> dao = getDao();
+		Dao<TimerTypesModel, Long> dao = getDao();
 		return dao.update(category);
 	}
 	
 	
 	public static int delete(long id) throws SQLException
 	{
-		Dao<CategoryModel, Long> dao = getDao();
+		Dao<TimerTypesModel, Long> dao = getDao();
 		return dao.deleteById(id);
 	}
 	
 	
 	public static int deleteAll() throws SQLException
 	{
-		Dao<CategoryModel, Long> dao = getDao();
-		DeleteBuilder<CategoryModel, Long> deleteBuilder = dao.deleteBuilder();
+		Dao<TimerTypesModel, Long> dao = getDao();
+		DeleteBuilder<TimerTypesModel, Long> deleteBuilder = dao.deleteBuilder();
 		return dao.delete(deleteBuilder.prepare());
 	}
 }

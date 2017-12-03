@@ -1,25 +1,25 @@
-package com.hciproject.makanapa.database.query;
+package com.example.database.query;
 
-import com.hciproject.makanapa.database.dao.RecipeDAO;
-import com.hciproject.makanapa.database.data.Data;
-import com.hciproject.makanapa.database.model.RecipeModel;
+import com.example.database.dao.TimerDAO;
+import com.example.database.data.Data;
+import com.example.database.model.TimerModel;
 
 import java.sql.SQLException;
 import java.util.List;
 
 
-public class RecipeReadAllQuery extends Query
+public class TimerReadAllQuery extends Query
 {
 	private long mSkip = -1l;
 	private long mTake = -1l;
 
 
-	public RecipeReadAllQuery()
+	public TimerReadAllQuery()
 	{
 	}
 
 
-	public RecipeReadAllQuery(long skip, long take)
+	public TimerReadAllQuery(long skip, long take)
 	{
 		mSkip = skip;
 		mTake = take;
@@ -27,10 +27,10 @@ public class RecipeReadAllQuery extends Query
 
 
 	@Override
-	public Data<List<RecipeModel>> processData() throws SQLException
+	public Data<List<TimerModel>> processData() throws SQLException
 	{
-		Data<List<RecipeModel>> data = new Data<>();
-		data.setDataObject(RecipeDAO.readAll(mSkip, mTake));
+		Data<List<TimerModel>> data = new Data<>();
+		data.setDataObject(TimerDAO.readAll(mSkip, mTake));
 		return data;
 	}
 }

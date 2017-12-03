@@ -1,28 +1,29 @@
-package com.hciproject.makanapa.database.query;
+package com.example.database.query;
 
-import com.hciproject.makanapa.database.dao.IngredientDAO;
-import com.hciproject.makanapa.database.data.Data;
-import com.hciproject.makanapa.database.model.IngredientModel;
+
+import com.example.database.dao.StepsDAO;
+import com.example.database.data.Data;
+import com.example.database.model.StepsModel;
 
 import java.sql.SQLException;
 
 
-public class IngredientReadQuery extends Query
+public class StepsReadQuery extends Query
 {
 	private long mId;
 
 
-	public IngredientReadQuery(long id)
+	public StepsReadQuery(long id)
 	{
 		mId = id;
 	}
 
 
 	@Override
-	public Data<IngredientModel> processData() throws SQLException
+	public Data<StepsModel> processData() throws SQLException
 	{
-		Data<IngredientModel> data = new Data<>();
-		data.setDataObject(IngredientDAO.read(mId));
+		Data<StepsModel> data = new Data<>();
+		data.setDataObject(StepsDAO.read(mId));
 		return data;
 	}
 }

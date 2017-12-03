@@ -1,14 +1,14 @@
-package com.hciproject.makanapa.database.query;
+package com.example.database.query;
 
-import com.hciproject.makanapa.database.dao.RecipeDAO;
-import com.hciproject.makanapa.database.data.Data;
+import com.example.database.dao.TimerDAO;
+import com.example.database.data.Data;
 
 import java.sql.SQLException;
 
 
-public class RecipeDeleteAllQuery extends Query
+public class TimerDeleteAllQuery extends Query
 {
-	public RecipeDeleteAllQuery()
+	public TimerDeleteAllQuery()
 	{
 	}
 
@@ -17,7 +17,7 @@ public class RecipeDeleteAllQuery extends Query
 	public Data<Integer> processData() throws SQLException
 	{
 		Data<Integer> data = new Data<>();
-		data.setDataObject(RecipeDAO.deleteAll());
+		data.setDataObject(TimerDAO.deleteAll());
 		return data;
 	}
 }

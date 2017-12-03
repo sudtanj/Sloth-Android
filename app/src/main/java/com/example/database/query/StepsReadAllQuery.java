@@ -1,25 +1,26 @@
-package com.hciproject.makanapa.database.query;
+package com.example.database.query;
 
-import com.hciproject.makanapa.database.dao.IngredientDAO;
-import com.hciproject.makanapa.database.data.Data;
-import com.hciproject.makanapa.database.model.IngredientModel;
+
+import com.example.database.dao.StepsDAO;
+import com.example.database.data.Data;
+import com.example.database.model.StepsModel;
 
 import java.sql.SQLException;
 import java.util.List;
 
 
-public class IngredientReadAllQuery extends Query
+public class StepsReadAllQuery extends Query
 {
 	private long mSkip = -1l;
 	private long mTake = -1l;
 
 
-	public IngredientReadAllQuery()
+	public StepsReadAllQuery()
 	{
 	}
 
 
-	public IngredientReadAllQuery(long skip, long take)
+	public StepsReadAllQuery(long skip, long take)
 	{
 		mSkip = skip;
 		mTake = take;
@@ -27,10 +28,10 @@ public class IngredientReadAllQuery extends Query
 
 
 	@Override
-	public Data<List<IngredientModel>> processData() throws SQLException
+	public Data<List<StepsModel>> processData() throws SQLException
 	{
-		Data<List<IngredientModel>> data = new Data<>();
-		data.setDataObject(IngredientDAO.readAll(mSkip, mTake));
+		Data<List<StepsModel>> data = new Data<>();
+		data.setDataObject(StepsDAO.readAll(mSkip, mTake));
 		return data;
 	}
 }

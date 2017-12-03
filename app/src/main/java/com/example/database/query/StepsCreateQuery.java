@@ -1,20 +1,20 @@
-package com.hciproject.makanapa.database.query;
+package com.example.database.query;
 
-import com.hciproject.makanapa.database.dao.IngredientDAO;
-import com.hciproject.makanapa.database.data.Data;
-import com.hciproject.makanapa.database.model.IngredientModel;
+import com.example.database.dao.StepsDAO;
+import com.example.database.data.Data;
+import com.example.database.model.StepsModel;
 
 import java.sql.SQLException;
 
 
-public class IngredientCreateQuery extends Query
+public class StepsCreateQuery extends Query
 {
-	private IngredientModel mIngredient;
+	private StepsModel mSteps;
 
 
-	public IngredientCreateQuery(IngredientModel ingredient)
+	public StepsCreateQuery(StepsModel steps)
 	{
-		mIngredient = ingredient;
+		mSteps = steps;
 	}
 	
 	
@@ -22,7 +22,7 @@ public class IngredientCreateQuery extends Query
 	public Data<Integer> processData() throws SQLException
 	{
 		Data<Integer> data = new Data<>();
-		data.setDataObject(IngredientDAO.create(mIngredient));
+		data.setDataObject(StepsDAO.create(mSteps));
 		return data;
 	}
 }

@@ -1,20 +1,20 @@
-package com.hciproject.makanapa.database.query;
+package com.example.database.query;
 
-import com.hciproject.makanapa.database.dao.CategoryDAO;
-import com.hciproject.makanapa.database.data.Data;
-import com.hciproject.makanapa.database.model.CategoryModel;
+import com.example.database.dao.TimerTypesDAO;
+import com.example.database.data.Data;
+import com.example.database.model.TimerTypesModel;
 
 import java.sql.SQLException;
 
 
-public class CategoryCreateQuery extends Query
+public class TimerTypesCreateQuery extends Query
 {
-	private CategoryModel mCategory;
+	private TimerTypesModel mTimerTypes;
 
 
-	public CategoryCreateQuery(CategoryModel category)
+	public TimerTypesCreateQuery(TimerTypesModel timerTypes)
 	{
-		mCategory = category;
+		mTimerTypes = timerTypes;
 	}
 	
 	
@@ -22,7 +22,7 @@ public class CategoryCreateQuery extends Query
 	public Data<Integer> processData() throws SQLException
 	{
 		Data<Integer> data = new Data<>();
-		data.setDataObject(CategoryDAO.create(mCategory));
+		data.setDataObject(TimerTypesDAO.create(mTimerTypes));
 		return data;
 	}
 }

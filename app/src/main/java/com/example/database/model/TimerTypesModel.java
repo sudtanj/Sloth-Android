@@ -1,4 +1,4 @@
-package com.hciproject.makanapa.database.model;
+package com.example.database.model;
 
 import com.j256.ormlite.dao.ForeignCollection;
 import com.j256.ormlite.field.DatabaseField;
@@ -9,21 +9,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-@DatabaseTable(tableName="categories")
-public class CategoryModel
+@DatabaseTable(tableName="timer_types")
+public class TimerTypesModel
 {
 	public static final String COLUMN_ID = "id";
 	public static final String COLUMN_NAME = "name";
-	public static final String COLUMN_IMAGE = "image";
+	//public static final String COLUMN_IMAGE = "image";
 
 	@DatabaseField(columnName=COLUMN_ID, generatedId=true) private long id;
 	@DatabaseField(columnName=COLUMN_NAME) private String name;
-	@DatabaseField(columnName=COLUMN_IMAGE) private String image;
-	@ForeignCollectionField private ForeignCollection<RecipeModel> recipes; // one to many
+	//@DatabaseField(columnName=COLUMN_IMAGE) private String image;
+	@ForeignCollectionField
+    private ForeignCollection<TimerModel> timers; // one to many
 
 
 	// empty constructor
-	public CategoryModel()
+	public TimerTypesModel()
 	{
 	}
 
@@ -52,22 +53,22 @@ public class CategoryModel
 	}
 
 
-	public String getImage()
+	/*public String getImage()
 	{
 		return image;
-	}
+	}*/
 
 
-	public void setImage(String image)
+	/*public void setImage(String image)
 	{
 		this.image = image;
-	}
+	}*/
 
 
-	public List<RecipeModel> getRecipes()
+	public List<TimerModel> getTimers()
 	{
-		List<RecipeModel> list = new ArrayList<>();
-		for(RecipeModel m : recipes)
+		List<TimerModel> list = new ArrayList<>();
+		for(TimerModel m : timers)
 		{
 			list.add(m);
 		}
@@ -75,8 +76,8 @@ public class CategoryModel
 	}
 
 
-	public void setRecipes(ForeignCollection<RecipeModel> recipes)
+	public void setTimers(ForeignCollection<TimerModel> timers)
 	{
-		this.recipes = recipes;
+		this.timers = timers;
 	}
 }

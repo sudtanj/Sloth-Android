@@ -1,39 +1,39 @@
-package com.hciproject.makanapa.database.query;
+package com.example.database.query;
 
-import com.hciproject.makanapa.database.dao.RecipeDAO;
-import com.hciproject.makanapa.database.data.Data;
-import com.hciproject.makanapa.database.model.RecipeModel;
+import com.example.database.dao.TimerDAO;
+import com.example.database.data.Data;
+import com.example.database.model.TimerModel;
 
 import java.sql.SQLException;
 import java.util.List;
 
 
-public class RecipeReadByCategoryQuery extends Query
+public class TimerReadByTimerTypesQuery extends Query
 {
-	private long mCategoryId;
+	private long mTimerTypesId;
 	private long mSkip = -1l;
 	private long mTake = -1l;
 
 
-	public RecipeReadByCategoryQuery(long categoryId)
+	public TimerReadByTimerTypesQuery(long timerTypesId)
 	{
-		mCategoryId = categoryId;
+		mTimerTypesId = timerTypesId;
 	}
 
 
-	public RecipeReadByCategoryQuery(long categoryId, long skip, long take)
+	public TimerReadByTimerTypesQuery(long categoryId, long skip, long take)
 	{
-		mCategoryId = categoryId;
+		mTimerTypesId = categoryId;
 		mSkip = skip;
 		mTake = take;
 	}
 
 
 	@Override
-	public Data<List<RecipeModel>> processData() throws SQLException
+	public Data<List<TimerModel>> processData() throws SQLException
 	{
-		Data<List<RecipeModel>> data = new Data<>();
-		data.setDataObject(RecipeDAO.readByCategory(mCategoryId, mSkip, mTake));
+		Data<List<TimerModel>> data = new Data<>();
+		data.setDataObject(TimerDAO.readByTimerTypes(mTimerTypesId, mSkip, mTake));
 		return data;
 	}
 }

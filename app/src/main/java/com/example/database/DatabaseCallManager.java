@@ -1,13 +1,13 @@
-package com.hciproject.makanapa.database;
-
-import java.util.LinkedList;
-import java.util.List;
+package com.example.database;
 
 import android.os.AsyncTask;
 import android.os.Build;
 
 import com.hciproject.makanapa.database.query.Query;
 import com.hciproject.makanapa.utility.Logcat;
+
+import java.util.LinkedList;
+import java.util.List;
 
 
 public class DatabaseCallManager

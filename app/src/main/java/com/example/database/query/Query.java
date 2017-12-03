@@ -1,8 +1,8 @@
-package com.hciproject.makanapa.database.query;
+package com.example.database.query;
 
 import android.os.Bundle;
 
-import com.hciproject.makanapa.database.data.Data;
+import com.example.database.data.Data;
 
 import java.sql.SQLException;
 

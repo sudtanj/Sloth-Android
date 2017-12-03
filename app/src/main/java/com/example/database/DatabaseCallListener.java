@@ -1,7 +1,7 @@
-package com.hciproject.makanapa.database;
+package com.example.database;
 
-import com.hciproject.makanapa.database.data.Data;
 
+import com.example.database.data.Data;
 
 public interface DatabaseCallListener
 {
