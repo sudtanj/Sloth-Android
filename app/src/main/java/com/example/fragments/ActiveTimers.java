@@ -32,6 +32,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.R;
+import com.example.animation.ProgressBarAnimation;
 import com.example.database.dao.StepsDAO;
 import com.example.database.dao.TimerDAO;
 import com.example.database.model.StepsModel;
@@ -240,7 +241,7 @@ public class ActiveTimers extends Fragment {
     private void runTime(){
         if(text.getText().length()>0) {
             try {
-                timeInput.setTime(timeInput.getTime()+(output.parse(text.getText().toString()).getSeconds()*1000));
+                timeInput.setTime(output.parse(text.getText().toString()).getSeconds()*1000);
             } catch (ParseException e) {
                 e.printStackTrace();
             }
@@ -252,13 +253,22 @@ public class ActiveTimers extends Fragment {
             text.setEnabled(false);
             new CountDownTimer(timeInput.getTime(), 1000) {
                 int maxProgress=progress.getMax(),currentProgress=progress.getProgress();
+                ProgressBarAnimation anim=null;
                 @Override
                 public void onTick(long millisUntilFinished) {
                     if(progress.getMax()<=100){
                         progress.setMax(maxProgress);
+                        anim = new ProgressBarAnimation(progress, maxProgress, currentProgress);
+                        anim.setDuration(1000);
+                        progress.startAnimation(anim);
+                        anim=null;
                     }
+                    anim=new ProgressBarAnimation(progress,currentProgress,currentProgress-1000);
                     currentProgress-=1000;
+                    anim.setDuration(1000);
+                    progress.startAnimation(anim);
                     progress.setProgress(currentProgress);
+                    anim=null;
                     text.setText(output.format(new Date(millisUntilFinished)));
                 }
 
