@@ -12,6 +12,7 @@ import android.speech.tts.TextToSpeech;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.TextWatcher;
@@ -36,6 +37,7 @@ import com.example.database.dao.TimerDAO;
 import com.example.database.model.StepsModel;
 import com.example.database.model.TimerModel;
 
+import java.io.Serializable;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -76,8 +78,8 @@ public class ActiveTimers extends Fragment {
     private CountDownTimer timer;
     private SimpleDateFormat input = new SimpleDateFormat("mm");
     private SimpleDateFormat output = new SimpleDateFormat("mm:ss");
-    private EditText text;
-    private ProgressBar progress;
+    private EditText text=null;
+    private ProgressBar progress=null;
     private TextToSpeech t1;
     private Button plusFive;
     private Date timeInput;
@@ -110,6 +112,14 @@ public class ActiveTimers extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setRetainInstance(true);
+        if (savedInstanceState != null) {
+            // Restore value of members from saved state
+            timeInput.setTime(savedInstanceState.getLong("timer"));
+            progress.setMax(savedInstanceState.getInt("progressMax"));
+            progress.setProgress(savedInstanceState.getInt("leftProgress"));
+            //mUser = savedInstanceState.getString(STATE_USER);
+        }
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
@@ -241,9 +251,14 @@ public class ActiveTimers extends Fragment {
             text.clearFocus();
             text.setEnabled(false);
             new CountDownTimer(timeInput.getTime(), 1000) {
+                int maxProgress=progress.getMax(),currentProgress=progress.getProgress();
                 @Override
                 public void onTick(long millisUntilFinished) {
-                    progress.setProgress(progress.getProgress() - 1000);
+                    if(progress.getMax()<=100){
+                        progress.setMax(maxProgress);
+                    }
+                    currentProgress-=1000;
+                    progress.setProgress(currentProgress);
                     text.setText(output.format(new Date(millisUntilFinished)));
                 }
 
@@ -268,6 +283,7 @@ public class ActiveTimers extends Fragment {
         }
     }
 
+
     private void setupTimer(){
         if(stepsModelTemp!=null){
             Date temp = null;
@@ -275,7 +291,7 @@ public class ActiveTimers extends Fragment {
                 Log.d("TimeValue :",String.valueOf(timerSteps.get(index).getTime()));
                 temp = output.parse(text.getText().toString());
                 timeInput.setTime(timerSteps.get(index).getTime()*1000);
-                text.setText(output.format(timeInput));
+                text.setText(output.format(new Date(timerSteps.get(index).getTime()*1000)));
             } catch (ParseException e) {
                 e.printStackTrace();
             }
