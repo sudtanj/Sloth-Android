@@ -12,9 +12,9 @@
     <string name="title_activity_select_theme">Select Theme</string>
 
     <!-- Theme Selection -->
-    <string name="theme_one">Theme One</string>
-    <string name="theme_two">Theme Two</string>
-    <string name="theme_three">Theme Three</string>
+    <string name="theme_one">Blue Theme</string>
+    <string name="theme_two">Green Theme</string>
+    <string name="theme_three">Red Theme</string>
     <string name="settings_tips">Choose to change theme</string>
 
     <!-- All Timers -->
