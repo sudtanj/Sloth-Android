@@ -74,6 +74,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 Intent intent = new Intent(MainActivity.this, TimerTypes.class);
                 intent.putExtra(THEME,theme);
                 startActivity(intent);
+                overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
                 return true;
         }
         return false;

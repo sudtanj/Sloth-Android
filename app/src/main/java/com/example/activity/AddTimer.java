@@ -47,10 +47,18 @@ public class AddTimer extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_timer);
+
         setupViews();
         setTheme(getIntent().getExtras().getInt(MainActivity.THEME));
         setupActionBar();
         setupTimer();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+        overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
     }
 
     private void setupViews(){

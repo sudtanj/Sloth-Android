@@ -2,6 +2,7 @@ package com.example.fragments;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.icu.text.SimpleDateFormat;
 import android.net.Uri;
@@ -18,6 +19,7 @@ import android.text.InputFilter;
 import android.text.TextWatcher;
 import android.text.method.DigitsKeyListener;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -39,6 +41,7 @@ import com.example.database.model.StepsModel;
 import com.example.database.model.TimerModel;
 
 import java.io.Serializable;
+import java.lang.reflect.Method;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ArrayList;
