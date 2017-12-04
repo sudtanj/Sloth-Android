@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             ft.hide(settings);
             ft.show(activeTimers).commit();
             */
-            ft.replace(R.id.frameContainer,activeTimers).commit();
+            ft.setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out).replace(R.id.frameContainer,activeTimers).commit();
             //ft.replace(R.id.frameContainer,allTimers).commit();
         }
         ((SlothTimeApplication) getApplication()).getTracker();
@@ -97,21 +97,21 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 //ft.show(allTimers);
                 //ft.hide(settings);
                 //ft.hide(activeTimers).commit();
-                ft.replace(R.id.frameContainer,allTimers).commit();
+                ft.setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out).replace(R.id.frameContainer,allTimers).commit();
                 return true;
             case R.id.navigation_active_timers:
                 setTitle(getString(R.string.title_active_timers));
                 //ft.hide(allTimers);
                 //ft.hide(settings);
                 //ft.show(activeTimers).commit();
-                ft.replace(R.id.frameContainer,activeTimers).commit();
+                ft.setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out).replace(R.id.frameContainer,activeTimers).commit();
                 return true;
             case R.id.navigation_settings:
                 setTitle(getString(R.string.title_activity_select_theme));
                 //ft.hide(allTimers);
                 //ft.show(settings);
                 //ft.hide(activeTimers).commit();
-                ft.replace(R.id.frameContainer,settings).commit();
+                ft.setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out).replace(R.id.frameContainer,settings).commit();
                 return true;
         }
         return false;
