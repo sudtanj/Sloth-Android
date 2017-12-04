@@ -299,6 +299,7 @@ public class ActiveTimers extends Fragment {
 
     private void setupTimer(){
         if(stepsModelTemp!=null){
+            index =0;
             Date temp = null;
             try {
                 Log.d("TimeValue :",String.valueOf(timerSteps.get(index).getTime()));

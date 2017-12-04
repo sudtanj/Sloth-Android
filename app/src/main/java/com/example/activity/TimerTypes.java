@@ -64,7 +64,11 @@ public class TimerTypes extends AppCompatActivity{
 
     private void setupPrebuiltTimers(){
         loadTimerTypesList();
-        String timerTypeName[] = new String[timerTypesList.size()-1];
+        int size = 0;
+        if(timerTypesList.size()-1>=0){
+            size = timerTypesList.size()-1;
+        }
+        String timerTypeName[] = new String[size];
         for(int i=0;i<timerTypesList.size()-1;++i){
             timerTypeName[i]=timerTypesList.get(i).getName();
         }

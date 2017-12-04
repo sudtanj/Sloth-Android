@@ -91,6 +91,12 @@ public class AllTimers extends Fragment {
         setupAllTimers();
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        setupAllTimers();
+    }
+
     private void setupAllTimers(){
         loadAllTimerList();
         ArrayList<String> list = new ArrayList<>();
