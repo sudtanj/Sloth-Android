@@ -244,7 +244,7 @@ public class ActiveTimers extends Fragment {
     private void runTime(){
         if(text.getText().length()>0) {
             try {
-                timeInput.setTime(output.parse(text.getText().toString()).getSeconds()*1000);
+                timeInput.setTime(timeInput.getTime()+(output.parse(text.getText().toString()).getSeconds()*1000));
             } catch (ParseException e) {
                 e.printStackTrace();
             }
@@ -303,7 +303,7 @@ public class ActiveTimers extends Fragment {
             try {
                 Log.d("TimeValue :",String.valueOf(timerSteps.get(index).getTime()));
                 temp = output.parse(text.getText().toString());
-                timeInput.setTime(timerSteps.get(index).getTime()*1000);
+                //timeInput.setTime(timerSteps.get(index).getTime()*1000);
                 text.setText(output.format(new Date(timerSteps.get(index).getTime()*1000)));
             } catch (ParseException e) {
                 e.printStackTrace();
