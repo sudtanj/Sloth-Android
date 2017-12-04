@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_all_timers"
+        android:icon="@drawable/ic_action_all_timers"
+        android:title="@string/title_all_timers" />
+
+    <item
+        android:id="@+id/navigation_active_timers"
+        android:icon="@drawable/ic_action_active_timers"
+        android:title="@string/title_active_timers" />
+
+    <item
+        android:id="@+id/navigation_settings"
+        android:icon="@drawable/ic_action_settings"
+        android:title="@string/title_settings" />
+
+</menu>
