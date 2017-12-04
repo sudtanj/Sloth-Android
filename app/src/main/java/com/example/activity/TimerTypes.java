@@ -80,8 +80,6 @@ public class TimerTypes extends AppCompatActivity{
         prebuiltList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
-                adapterView.setBackgroundColor(getResources().getColor(R.color.colorAccent));
                 Bundle bundle = new Bundle();
                 bundle.putInt(SELECTED_ITEM_ID,i);
                 bundle.putString(SELECTED_ITEM,adapter.getItem(i));
