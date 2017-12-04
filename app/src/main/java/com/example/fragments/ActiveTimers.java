@@ -315,7 +315,9 @@ public class ActiveTimers extends Fragment {
         try {
             timerModel = TimerDAO.read(getArguments().getLong(ITEM));
             timerSteps = StepsDAO.readByTimer(timerModel.getId(),-11,-11);
-            stepsModelTemp = timerSteps.get(index);
+            if(index<=timerSteps.size()){
+                stepsModelTemp = timerSteps.get(index);
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }

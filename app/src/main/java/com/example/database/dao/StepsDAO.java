@@ -20,17 +20,17 @@ public class StepsDAO extends DAO
 	}
 	
 	
-	public static int refresh(StepsModel ingredient) throws SQLException
+	public static int refresh(StepsModel stepsModel) throws SQLException
 	{
 		Dao<StepsModel, Long> dao = getDao();
-		return dao.refresh(ingredient);
+		return dao.refresh(stepsModel);
 	}
 	
 	
-	public static int create(StepsModel ingredient) throws SQLException
+	public static int create(StepsModel stepsModel) throws SQLException
 	{
 		Dao<StepsModel, Long> dao = getDao();
-		return dao.create(ingredient);
+		return dao.create(stepsModel);
 	}
 	
 	

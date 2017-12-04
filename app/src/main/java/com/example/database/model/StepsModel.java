@@ -72,7 +72,7 @@ public class StepsModel {
     }
 
 
-    public void setTime(int quantity)
+    public void setTime(int time)
     {
         this.time = time;
     }

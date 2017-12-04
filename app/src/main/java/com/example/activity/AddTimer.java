@@ -13,6 +13,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
+import android.widget.Toolbar;
 
 import com.example.R;
 import com.example.database.dao.StepsDAO;
@@ -20,6 +22,7 @@ import com.example.database.dao.TimerDAO;
 import com.example.database.dao.TimerTypesDAO;
 import com.example.database.model.StepsModel;
 import com.example.database.model.TimerModel;
+import com.j256.ormlite.dao.ForeignCollection;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -34,6 +37,7 @@ public class AddTimer extends AppCompatActivity {
     private List<TimerModel> timer = new ArrayList<>();
     private List<StepsModel> stepsModelList = new ArrayList<>();
     private List<StepsModel> temp = new ArrayList<>();
+    ArrayList<String> stepsName;
 
     private EditText timerName;
     private EditText timerInformation;
@@ -69,11 +73,15 @@ public class AddTimer extends AppCompatActivity {
         done = (Button) findViewById(R.id.doneButton);
         addButton = (Button) findViewById(R.id.addStepButton);
         edit = (TextView) findViewById(R.id.editText);
-
+        edit.setEnabled(false);
         done.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                addTimerToDatabase();
+                try {
+                    addTimerToDatabase();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
                 finish();
             }
         });
@@ -99,12 +107,18 @@ public class AddTimer extends AppCompatActivity {
                                         //result.setText(userInput.getText());
                                         StepsModel stepsModel = new StepsModel();
                                         stepsModel.setName(stepInputName.getText().toString());
-                                        try{
+                                        if(stepInputSeconds.getText().toString().matches("[0-9]+")){
                                             stepsModel.setTime(Integer.valueOf(stepInputSeconds.getText().toString()));
-                                        }catch (Exception e){}
-                                        temp.add(stepsModel);
-                                        stepsModelList.add(stepsModel);
-                                        refreshListView();
+                                            temp.add(stepsModel);
+                                            stepsModelList.add(stepsModel);
+                                            refreshListView();
+                                        }else{
+                                            Toast.makeText(getApplicationContext(), "Please only input a number to remove step", Toast.LENGTH_SHORT).show();
+                                        }
+
+                                        if(stepsModelList.size()!=0){
+                                            edit.setEnabled(true);
+                                        }
                                     }
                                 })
                         .setNegativeButton("Cancel",
@@ -118,7 +132,6 @@ public class AddTimer extends AppCompatActivity {
                 alertDialog.show();
             }
         });
-
         edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -137,10 +150,18 @@ public class AddTimer extends AppCompatActivity {
                                     public void onClick(DialogInterface dialog,int id) {
                                         // get user input and set it to result
                                         //result.setText(userInput.getText());
-                                        try{
-                                            stepsModelList.remove(Integer.valueOf(stepInputEdit.getText().toString())+1);
-                                        }catch (Exception e){}
-                                        refreshListView();
+                                        if(stepInputEdit.getText().toString().matches("[0-9]+")&&Integer.valueOf(stepInputEdit.getText().toString())<=stepsModelList.size()){
+                                            stepsModelList.remove(Integer.valueOf(stepInputEdit.getText().toString())-1);
+                                            refreshListView();
+                                        }else if(!stepInputEdit.getText().toString().matches("[0-9]+")){
+                                            Toast.makeText(getApplicationContext(), "Please only input a number to remove step", Toast.LENGTH_SHORT).show();
+                                        }else{
+                                            Toast.makeText(getApplicationContext(), "Input is bigger than the step list", Toast.LENGTH_SHORT).show();
+                                        }
+
+                                        if(stepsName.size()==0){
+                                            edit.setEnabled(false);
+                                        }
                                     }
                                 })
                         .setNegativeButton("Cancel",
@@ -167,7 +188,7 @@ public class AddTimer extends AppCompatActivity {
     }
 
     private void refreshListView(){
-        ArrayList<String> stepsName = new ArrayList<>();
+        stepsName = new ArrayList<>();
         for(StepsModel model: stepsModelList){
             if(model.getTime()>60){
                 if(model.getTime()%60==0){
@@ -189,47 +210,23 @@ public class AddTimer extends AppCompatActivity {
         setTitle(getString(R.string.add_timer));
     }
 
-    private void addTimerToDatabase(){
+    private void addTimerToDatabase() throws SQLException {
         int timerId = 0;
-        try {
-            timerId = new ArrayList<>(TimerDAO.readAll(-11,-11)).size();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        int stepsIndex = 0;
-        try {
-            stepsIndex = new ArrayList<>(StepsDAO.readAll(-11,-11)).size();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
 
-        TimerModel tempTimerModel = new TimerModel();
-        if(timerId!=0){
-            tempTimerModel.setId(timerId);
-            try {
-                tempTimerModel.setTimerType(TimerTypesDAO.read(3));
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-            tempTimerModel.setName(timerName.getText().toString());
-            tempTimerModel.setInformation(timerInformation.getText().toString());
-            try {
-                TimerDAO.update(tempTimerModel);
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-        if(stepsIndex!=0){
-            for(int i = stepsIndex; i < stepsModelList.size();++i){
-                StepsModel tempModel = stepsModelList.get(i);
-                tempModel.setId(i);
-                tempModel.setTimer(tempTimerModel);
-                try {
-                    StepsDAO.update(tempModel);
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
+        TimerModel tempTimerMModel = new TimerModel();
+        tempTimerMModel.setId(TimerDAO.readAll(-11,-11).size()+1);
+        tempTimerMModel.setTimerType(TimerTypesDAO.read(4));
+        tempTimerMModel.setName(timerName.getText().toString());
+        tempTimerMModel.setInformation(timerInformation.getText().toString());
+
+        int stespDBList = StepsDAO.readAll(-11,-11).size();
+
+        for(int i = stespDBList+1, j = 0; i<stepsModelList.size()+stespDBList+1 && j<stepsModelList.size() ; ++i , ++j){
+            StepsModel tempStepsModel = new StepsModel();
+            tempStepsModel = stepsModelList.get(j);
+            tempStepsModel.setId(i);
+            tempStepsModel.setTimer(tempTimerMModel);
+            StepsDAO.create(tempStepsModel);
         }
 
     }

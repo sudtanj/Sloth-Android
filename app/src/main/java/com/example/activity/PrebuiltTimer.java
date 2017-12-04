@@ -9,8 +9,12 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.example.R;
+import com.example.database.DatabaseCallListener;
+import com.example.database.DatabaseCallManager;
+import com.example.database.DatabaseCallTask;
 import com.example.database.dao.TimerDAO;
 import com.example.database.dao.TimerTypesDAO;
+import com.example.database.data.Data;
 import com.example.database.model.TimerModel;
 import com.example.database.model.TimerTypesModel;
 
@@ -18,9 +22,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PrebuiltTimer extends AppCompatActivity {
+public class PrebuiltTimer extends AppCompatActivity implements DatabaseCallListener{
 
 
+    DatabaseCallManager databaseCallManager = new DatabaseCallManager();
     private List<TimerModel> timerList = new ArrayList<>();
     ListView timerListView;
 
@@ -68,5 +73,15 @@ public class PrebuiltTimer extends AppCompatActivity {
         {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void onDatabaseCallRespond(DatabaseCallTask task, Data<?> data) {
+
+    }
+
+    @Override
+    public void onDatabaseCallFail(DatabaseCallTask task, Exception exception) {
+
     }
 }

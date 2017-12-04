@@ -11,7 +11,9 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.example.R;
+import com.example.database.dao.TimerDAO;
 import com.example.database.dao.TimerTypesDAO;
+import com.example.database.model.TimerModel;
 import com.example.database.model.TimerTypesModel;
 import com.j256.ormlite.table.DatabaseTable;
 
@@ -62,17 +64,8 @@ public class TimerTypes extends AppCompatActivity{
 
     private void setupPrebuiltTimers(){
         loadTimerTypesList();
-        try
-        {
-            timerTypesList = TimerTypesDAO.readAll(-11, -11);
-        }
-        catch(SQLException e)
-        {
-            e.printStackTrace();
-            System.out.println(e.getErrorCode());
-        }
-        String timerTypeName[] = new String[timerTypesList.size()];
-        for(int i=0;i<timerTypesList.size();++i){
+        String timerTypeName[] = new String[timerTypesList.size()-1];
+        for(int i=0;i<timerTypesList.size()-1;++i){
             timerTypeName[i]=timerTypesList.get(i).getName();
         }
         final ArrayAdapter<String> adapter = new ArrayAdapter<>(getApplicationContext(),android.R.layout.simple_list_item_1,timerTypeName);
@@ -96,7 +89,7 @@ public class TimerTypes extends AppCompatActivity{
     {
         try
         {
-            timerTypesList = TimerTypesDAO.readAll(-1l, -1l);
+            timerTypesList = TimerTypesDAO.readAll(0, 128);
         }
         catch(SQLException e)
         {

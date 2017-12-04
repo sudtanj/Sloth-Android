@@ -161,7 +161,7 @@ public class AllTimers extends Fragment {
     {
         try
         {
-            allTimerList = TimerDAO.readAll(-1l, -1l);
+            allTimerList = TimerDAO.readByTimerTypes(4,0, 128);
         }
         catch(SQLException e)
         {

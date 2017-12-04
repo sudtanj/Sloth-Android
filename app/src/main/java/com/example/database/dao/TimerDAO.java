@@ -20,17 +20,17 @@ public class TimerDAO extends DAO
 	}
 	
 	
-	public static int refresh(TimerModel recipe) throws SQLException
+	public static int refresh(TimerModel timer) throws SQLException
 	{
 		Dao<TimerModel, Long> dao = getDao();
-		return dao.refresh(recipe);
+		return dao.refresh(timer);
 	}
 	
 	
-	public static int create(TimerModel recipe) throws SQLException
+	public static int create(TimerModel timer) throws SQLException
 	{
 		Dao<TimerModel, Long> dao = getDao();
-		return dao.create(recipe);
+		return dao.create(timer);
 	}
 	
 	
