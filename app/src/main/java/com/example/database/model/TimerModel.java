@@ -26,7 +26,7 @@ public class TimerModel {
     @DatabaseField(columnName=COLUMN_ID, generatedId=true) private long id;
     @DatabaseField(columnName = COLUMN_TIMER_TYPE_ID,foreign=true, index=true) private TimerTypesModel timerType;
     @DatabaseField(columnName=COLUMN_NAME) private String name;
-    //@DatabaseField(columnName=COLUMN_INFORMATION) private String information;
+    @DatabaseField(columnName=COLUMN_INFORMATION) private String information;
     //@DatabaseField(columnName=COLUMN_IMAGE) private String image;
     @ForeignCollectionField
     private ForeignCollection<StepsModel> steps; // one to many
@@ -46,12 +46,11 @@ public class TimerModel {
     }
 
     public String getInformation() {
-    //    return information;
-        return null;
+       return information;
     }
 
     public void setInformation(String information) {
-        //this.information = information;
+        this.information = information;
     }
 
     public long getId()
