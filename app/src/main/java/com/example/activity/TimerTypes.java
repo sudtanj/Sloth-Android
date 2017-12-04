@@ -55,6 +55,7 @@ public class TimerTypes extends AppCompatActivity{
                     intent.putExtra(MainActivity.THEME, getIntent().getExtras().getInt(MainActivity.THEME));
                     intent.putExtra(AddTimer.MENU_KEY,AddTimer.MANUAL);
                     startActivity(intent);
+                    finish();
                 }
             }
         });
