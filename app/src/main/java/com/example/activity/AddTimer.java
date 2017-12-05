@@ -38,7 +38,7 @@ public class AddTimer extends AppCompatActivity {
     private List<TimerModel> timer = new ArrayList<>();
     private List<StepsModel> stepsModelList = new ArrayList<>();
     private List<StepsModel> temp = new ArrayList<>();
-    ArrayList<String> stepsName;
+    ArrayList<String> stepsName = new ArrayList<>();
     ArrayList<Integer> stepsTime;
 
     private EditText timerName;
@@ -117,6 +117,7 @@ public class AddTimer extends AppCompatActivity {
                                             stepsModel.setTime(Integer.valueOf(stepInputSeconds.getText().toString())*1000);
                                             temp.add(stepsModel);
                                             stepsModelList.add(stepsModel);
+                                            stepsTime.add(Integer.valueOf(stepInputSeconds.getText().toString()));
                                             refreshListView();
                                         }else{
                                             Toast.makeText(getApplicationContext(), "Please only input a number to remove step", Toast.LENGTH_SHORT).show();
@@ -158,6 +159,7 @@ public class AddTimer extends AppCompatActivity {
                                         //result.setText(userInput.getText());
                                         if(stepInputEdit.getText().toString().matches("[0-9]+")&&Integer.valueOf(stepInputEdit.getText().toString())<=stepsModelList.size()){
                                             stepsModelList.remove(Integer.valueOf(stepInputEdit.getText().toString())-1);
+                                            stepsTime.remove(Integer.valueOf(stepInputEdit.getText().toString())-1);
                                             refreshListView();
                                         }else if(!stepInputEdit.getText().toString().matches("[0-9]+")){
                                             Toast.makeText(getApplicationContext(), "Please only input a number to remove step", Toast.LENGTH_SHORT).show();
@@ -236,6 +238,7 @@ public class AddTimer extends AppCompatActivity {
             StepsDAO.create(tempStepsModel);
         }
 
+        TimerDAO.create(tempTimerMModel);
     }
 
     private void loadSelectedTimer(){
