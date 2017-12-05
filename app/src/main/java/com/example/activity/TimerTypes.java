@@ -82,6 +82,7 @@ public class TimerTypes extends AppCompatActivity{
                 bundle.putInt(SELECTED_ITEM_ID,i);
                 bundle.putString(SELECTED_ITEM,adapter.getItem(i));
                 startActivity(new Intent(TimerTypes.this,PrebuiltTimer.class).putExtras(bundle));
+                finish();
             }
         });
     }

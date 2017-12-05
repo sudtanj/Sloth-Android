@@ -39,9 +39,10 @@ public class AddTimer extends AppCompatActivity {
     private List<StepsModel> stepsModelList = new ArrayList<>();
     private List<StepsModel> temp = new ArrayList<>();
     ArrayList<String> stepsName;
+    ArrayList<Integer> stepsTime;
 
     private EditText timerName;
-    private EditText timerInformation;
+    //private EditText timerInformation;
     private ListView steps;
     private Button done;
     private Button addButton;
@@ -73,7 +74,7 @@ public class AddTimer extends AppCompatActivity {
     private void setupViews(){
 
         timerName = (EditText) findViewById(R.id.timerName);
-        timerInformation = (EditText) findViewById(R.id.timerInformation);
+        //timerInformation = (EditText) findViewById(R.id.timerInformation);
         steps = (ListView) findViewById(R.id.stepsList);
         done = (Button) findViewById(R.id.doneButton);
         addButton = (Button) findViewById(R.id.addStepButton);
@@ -113,7 +114,7 @@ public class AddTimer extends AppCompatActivity {
                                         StepsModel stepsModel = new StepsModel();
                                         stepsModel.setName(stepInputName.getText().toString());
                                         if(stepInputSeconds.getText().toString().matches("[0-9]+")){
-                                            stepsModel.setTime(Integer.valueOf(stepInputSeconds.getText().toString()));
+                                            stepsModel.setTime(Integer.valueOf(stepInputSeconds.getText().toString())*1000);
                                             temp.add(stepsModel);
                                             stepsModelList.add(stepsModel);
                                             refreshListView();
@@ -186,7 +187,7 @@ public class AddTimer extends AppCompatActivity {
         if(getIntent().getExtras().getInt(MENU_KEY)==FIRST){
            loadSelectedTimer();
            timerName.setText(timer.get(FIRST).getName());
-           timerInformation.setText(timer.get(FIRST).getInformation());
+           //timerInformation.setText(timer.get(FIRST).getInformation());
            loadStepsTimer();
            refreshListView();
         }
@@ -194,18 +195,19 @@ public class AddTimer extends AppCompatActivity {
 
     private void refreshListView(){
         stepsName = new ArrayList<>();
-        for(StepsModel model: stepsModelList){
-            if(model.getTime()>60){
-                if(model.getTime()%60==0){
-                    stepsName.add(model.getName()+" : "+model.getTime()/60+" "+"minutes");
+        //s
+        for(int i=0;i<stepsModelList.size();++i){
+            if(stepsModelList.get(i).getTime()/1000>60){
+                if(stepsModelList.get(i).getTime()/1000%60==0){
+                    stepsName.add(stepsModelList.get(i).getName()+" : "+stepsTime.get(i)/60+" "+"minutes");
                 }else{
-                    stepsName.add(model.getName()+" : "+model.getTime()/60+" "+"minutes and "+model.getTime()%60+"seconds");
+                    stepsName.add(stepsModelList.get(i).getName()+" : "+stepsTime.get(i)/60+" "+"minutes and "+stepsModelList.get(i).getTime()%60+"seconds");
                 }
             }else{
-                stepsName.add(model.getName()+" : "+model.getTime()+" "+"seconds");
+                stepsName.add(stepsModelList.get(i).getName()+" : "+stepsTime.get(i)+" "+"seconds");
             }
 
-            Log.d("Time Value :" , Float.toString(model.getTime()));
+            Log.d("Time Value :" , Float.toString(stepsModelList.get(i).getTime()));
         }
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getApplicationContext(),android.R.layout.simple_list_item_1,stepsName);
         steps.setAdapter(arrayAdapter);
@@ -222,7 +224,7 @@ public class AddTimer extends AppCompatActivity {
         tempTimerMModel.setId(TimerDAO.readAll(-11,-11).size()+1);
         tempTimerMModel.setTimerType(TimerTypesDAO.read(4));
         tempTimerMModel.setName(timerName.getText().toString());
-        tempTimerMModel.setInformation(timerInformation.getText().toString());
+        //tempTimerMModel.setInformation(timerInformation.getText().toString());
 
         int stespDBList = StepsDAO.readAll(-11,-11).size();
 
@@ -251,6 +253,10 @@ public class AddTimer extends AppCompatActivity {
         try
         {
             stepsModelList = StepsDAO.readByTimer(timer.get(FIRST).getId(),-11,-11);
+            stepsTime = new ArrayList<>();
+            for(StepsModel stepsModel:stepsModelList){
+                stepsTime.add(stepsModel.getTime()/1000);
+            }
         }
         catch(SQLException e)
         {

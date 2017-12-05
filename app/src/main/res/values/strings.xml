@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Sloth Time</string>
+    <string name="app_name">Sloth</string>
     <string name="title_all_timers">All Timers</string>
     <string name="title_active_timers">Active Timers</string>
     <string name="title_settings">Settings</string>

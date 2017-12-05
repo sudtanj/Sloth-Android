@@ -87,8 +87,10 @@ public class ActiveTimers extends Fragment {
     private TextToSpeech t1;
     private Button plusFive;
     private Date timeInput;
-    private int index;
-
+    private int index=0;
+    private boolean running = false;
+    ArrayList<String> list = new ArrayList<>();
+    ArrayAdapter<String> arrayAdapter;
     private Context context;
 
     public ActiveTimers() {
@@ -116,7 +118,9 @@ public class ActiveTimers extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        index=0;
         setRetainInstance(true);
+        setupTimer();
         if (savedInstanceState != null) {
             // Restore value of members from saved state
             timeInput.setTime(savedInstanceState.getLong("timer"));
@@ -158,11 +162,11 @@ public class ActiveTimers extends Fragment {
         plusFive = (Button) view.findViewById(R.id.addTimeButton);
         stepsList = (ListView) view.findViewById(R.id.activeTimersStepList);
         next = (Button) view.findViewById(R.id.nextButton);
-        ArrayList<String> list = new ArrayList<>();
+        list = new ArrayList<>();
         for(StepsModel step : timerSteps){
             list.add(step.getName());
         }
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1,list);
+        arrayAdapter = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1,list);
         stepsList.setAdapter(arrayAdapter);
         stepsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -185,6 +189,20 @@ public class ActiveTimers extends Fragment {
                 }
             }
         });
+        stepsList.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                if(!running){
+                    index = i;
+                    setupTimer();
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
         text.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -204,7 +222,14 @@ public class ActiveTimers extends Fragment {
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                index+=1;
+                if(!running){
+                    if(index+1!=timerSteps.size()&&index<timerSteps.size()){
+                        ++index;
+                    }else{
+                        index=0;
+                    }
+                    setupTimer();
+                }
             }
         });
         plusFive.setOnClickListener(new View.OnClickListener() {
@@ -223,6 +248,8 @@ public class ActiveTimers extends Fragment {
             @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override
             public void onClick(View v) {
+                next.setEnabled(false);
+                running = true;
                 runTime();
             }
         });
@@ -237,8 +264,6 @@ public class ActiveTimers extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        setupTimer();
-
     }
 
     private void runTime(){
@@ -279,9 +304,6 @@ public class ActiveTimers extends Fragment {
 
                 @Override
                 public void onFinish() {
-                    if(timerSteps.size()>=index){
-                        index++;
-                    }
                     String output1="Your main countdown is up!";
                     Toast.makeText(context,output1,Toast.LENGTH_SHORT).show();
                     t1.speak(output1, TextToSpeech.QUEUE_FLUSH, null);
@@ -290,6 +312,8 @@ public class ActiveTimers extends Fragment {
                     text.setEnabled(true);
                     start.setEnabled(true);
                     progress.setSecondaryProgressTintList(ColorStateList.valueOf(Color.BLACK));
+                    running = false;
+                    next.setEnabled(true);
                 }
             }.start();
         }
@@ -298,16 +322,18 @@ public class ActiveTimers extends Fragment {
         }
     }
 
+    private void changeTimer(){
+
+    }
 
     private void setupTimer(){
         if(stepsModelTemp!=null){
-            index =0;
             Date temp = null;
             try {
                 Log.d("TimeValue :",String.valueOf(timerSteps.get(index).getTime()));
                 temp = output.parse(text.getText().toString());
-                timeInput.setTime(timerSteps.get(index).getTime()*1000);
-                text.setText(output.format(new Date(timerSteps.get(index).getTime()*1000)));
+                timeInput.setTime(timerSteps.get(index).getTime());
+                text.setText(output.format(new Date(timerSteps.get(index).getTime())));
             } catch (ParseException e) {
                 e.printStackTrace();
             }

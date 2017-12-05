@@ -56,9 +56,11 @@ public class PrebuiltTimer extends AppCompatActivity implements DatabaseCallList
                 Intent intent = new Intent(getApplicationContext(),AddTimer.class);
                 intent.putExtras(bundle);
                 startActivity(intent);
+                finish();
             }
         });
     }
+
 
     private void setupActionBar(){
         setTitle(getIntent().getExtras().getString(TimerTypes.SELECTED_ITEM));
