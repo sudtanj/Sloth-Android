@@ -172,7 +172,7 @@ public class ActiveTimers extends Fragment {
             }
         });
 
-        timeInput = new Date(0);
+        timeInput = new Date(000);
         text.setText(output.format(timeInput));
         text.setGravity(Gravity.CENTER);
         text.setFilters(new InputFilter[] {new InputFilter.LengthFilter(5)});
@@ -243,10 +243,12 @@ public class ActiveTimers extends Fragment {
 
     private void runTime(){
         if(text.getText().length()>0) {
-            try {
-                timeInput.setTime(timeInput.getTime()+(output.parse(text.getText().toString()).getSeconds()*1000));
-            } catch (ParseException e) {
-                e.printStackTrace();
+            if(timeInput.getTime()<=0) {
+                try {
+                    timeInput.setTime(timeInput.getTime() + (output.parse(text.getText().toString()).getSeconds() * 1000));
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
             }
             progress.setSecondaryProgressTintList(ColorStateList.valueOf(Color.WHITE));
             start.setEnabled(false);
@@ -304,7 +306,7 @@ public class ActiveTimers extends Fragment {
             try {
                 Log.d("TimeValue :",String.valueOf(timerSteps.get(index).getTime()));
                 temp = output.parse(text.getText().toString());
-                //timeInput.setTime(timerSteps.get(index).getTime()*1000);
+                timeInput.setTime(timerSteps.get(index).getTime()*1000);
                 text.setText(output.format(new Date(timerSteps.get(index).getTime()*1000)));
             } catch (ParseException e) {
                 e.printStackTrace();

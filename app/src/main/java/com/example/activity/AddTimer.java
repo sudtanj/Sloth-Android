@@ -2,6 +2,7 @@ package com.example.activity;
 
 import android.app.FragmentTransaction;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -45,6 +46,8 @@ public class AddTimer extends AppCompatActivity {
     private Button done;
     private Button addButton;
     private TextView edit;
+    public static final String THEME = "Theme";
+    private int theme = 1;
 
 
     @Override
@@ -61,7 +64,9 @@ public class AddTimer extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        finish();
+        Intent intent = new Intent(getApplicationContext(), TimerTypes.class);
+        intent.putExtra(THEME,theme);
+        startActivity(intent);
         overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
     }
 
