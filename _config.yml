@@ -2,3 +2,5 @@
 name: Sloth - Task Manager App
 
 show_downloads: true
+
+theme: jekyll-theme-cayman
