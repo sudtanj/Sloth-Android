@@ -3,7 +3,7 @@
 ## Java Documentation
 <iframe src="javadoc/index.html" frameborder="0" width="100%" height="1080px"></iframe>
 
-## Project Member
+## Project Team Member
 <table>
 <thead>
 <tr>
@@ -71,3 +71,6 @@
 <td><a title="@VrGun" href="https://github.com/VrGun">@VrGun</a></td>
 <td>00000012343</td>
 </tr></tbody></table>
+
+## References
+- https://itunes.apple.com/us/app/sloth-task-manager/id1071949079?mt=8
