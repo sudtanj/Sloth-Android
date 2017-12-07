@@ -1,5 +1,8 @@
 # HCI-Sloth
 
+## Java Documentation
+<iframe src="javadoc/index.html" frameborder="0" width="100%" height="1080px"></iframe>
+
 ## Project Member
 | No | Profile Picture | Member Name | Github Userid | Student Id Number |
 | ------ | ------ | ------ | ------ | ------ |
