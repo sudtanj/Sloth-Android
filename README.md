@@ -1,4 +1,4 @@
-# HCI-Sloth
+# Sloth - Task Manager App
 
 ## Project Member
 | No | Profile Picture | Member Name | Github Userid | Student Id Number |
