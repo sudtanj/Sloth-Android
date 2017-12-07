@@ -1,4 +1,3 @@
-# HCI-Sloth
 
 ## Java Documentation
 <iframe src="javadoc/index.html" frameborder="0" width="100%" height="1080px"></iframe>
